@@ -1,0 +1,35 @@
+{
+  "dependencies": {
+    "main.css": {
+      "files": [
+        "styles/main.scss"
+      ]
+    },
+    "plugins.css": {
+      "vendor": [
+        "src/styles/vendor/*.scss"
+      ]
+    },
+    "main.js": {
+      "files": [
+        "scripts/main.js"
+      ]
+    },
+    "plugins.js": {
+      "vendor": [
+        "src/scripts/vendor/*.js"
+      ]
+    },
+    "jquery.js": {
+      "bower": ["jquery"]
+    }
+  },
+  "paths": {
+    "source": "src/",
+    "dist": "dist/"
+  },
+  "config": {
+    "devUrl": "aternity.test",
+    "minify": false
+  }
+}

@@ -35,10 +35,10 @@ var gap = require('gulp-append-prepend');
 var color = require('gulp-color');
 var babel = require('gulp-babel');
 var terser = require('gulp-terser');
-var rjs = require('gulp-requirejs-optimize');
-var gulpmatch = require('gulp-match');
-var map = require('map-stream');
-
+var named = require('vinyl-named');
+var webpack = require('webpack-stream');
+var webpackOrig = require('webpack');
+var browserify = require('browserify');
 /**
  * Notice for user
  */
@@ -61,7 +61,7 @@ if (noticeEnabled) {
 /**
  * Core Gulp variables
  */
-var manifest = require('asset-builder')(manifestLocation);
+var manifest = require('asset-builder-nobower')(manifestLocation);
 var path = manifest.paths; // Paths to folders like source and dist
 var config = manifest.config || {}; // Custom config from manifest
 var globs = manifest.globs; // Globs for all assets (ex: js, css, fonts...)
@@ -152,6 +152,7 @@ var jsPipeline = function (filename) {
       .pipe(function () {
         return gulpif(enabled.maps, sourcemaps.init());
       })
+      .pipe(named)
       .pipe(babel, {
         presets: [['env', {
           "targets": {
@@ -160,24 +161,45 @@ var jsPipeline = function (filename) {
           }
         }]]
       })
-      .pipe(function () {
-        return gulpif(['!bower_components/**'], rjs({
-          baseUrl: "src/scripts/",
-          name: "main",
-          out: "main.js",
-          optimize: "uglify2",
-          generateSourceMaps: true,
-          preserveLicenseComments: false,
-          useSourceUrl: true,
-        }))
+      .pipe(print)
+      // .pipe(browserify)
+      .pipe(webpack, {
+        module: {
+          rules: [
+            {
+              test: /\.js$/,
+              use: {
+                loader: 'babel-loader',
+                options: {
+                  presets: []
+                }
+              }
+            }
+          ],
+        },
+        mode: argv.production ? 'production' : 'development',
+        devtool: !argv.production ? 'source-map' : false,
+        optimization: {
+          minimize: !!argv.production
+        },
+        plugins: [
+                  new webpackOrig.ProvidePlugin({
+                    $: 'jquery',
+                    jQuery: 'jquery',
+                    'window.jQuery': 'jquery'
+                  }),
+                ],
+        output: {
+          filename: argv.production ? '[name].min.js' : '[name].js'
+        },
       })
-      .pipe(concat, filename)
-      .pipe(function () {
-        return gulpif(config.minify, uglify({
-          mangle: false,
-          compress: false
-        }));
-      })
+      // .pipe(concat, filename)
+      // .pipe(function () {
+      //   return gulpif(config.minify, uglify({
+      //     mangle: false,
+      //     compress: false
+      //   }));
+      // })
       // .pipe(terser)
       .pipe(function () {
         return gulpif(enabled.rev, rev());
@@ -239,6 +261,7 @@ gulp.task('styles', function () {
 gulp.task('scripts', function () {
   var merged = merge();
   manifest.forEachDependency('js', function (dep) {
+    //console.log(dep.name);
     merged.add(
         gulp.src(dep.globs, {base: 'scripts'})
         // Sort plugins alphabetically
@@ -254,7 +277,7 @@ gulp.task('scripts', function () {
               }
               return a.history[0].localeCompare(b.history[0]);
             })))
-            // .pipe(print())
+            //.pipe(print())
             .pipe(plumber({errorHandler: onError}))
             .pipe(jsPipeline(dep.name))
     );
