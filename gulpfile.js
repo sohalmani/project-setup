@@ -147,7 +147,9 @@ var cssPipeline = function (filename) {
  *
  * Used to process script assets into compiled assets
  */
-var jsPipeline = function (filename) {
+var jsPipeline = function (dep) {
+  var isProjectGlob = project.js.includes(dep.globs.toString());
+
   return lazypipe()
       .pipe(function () {
         return gulpif(enabled.maps, sourcemaps.init());
@@ -161,7 +163,26 @@ var jsPipeline = function (filename) {
         }]]
       })
       .pipe(function () {
-        return gulpif(['!bower_components/**'], rjs({
+        return gulpif(isProjectGlob, jshint({
+          "esnext": false,
+          "moz": true,
+          "boss": true,
+          "node": true,
+          "validthis": true,
+          "globals": {
+            "EventEmitter": true,
+            "Promise": true
+          }
+        }));
+      })
+      .pipe(function () {
+        return gulpif(isProjectGlob, jshint.reporter('jshint-stylish'));
+      })
+      // .pipe(function () {
+      //   return gulpif(isProjectDependency, jshint.reporter('fail'));
+      // })
+      .pipe(function () {
+        return gulpif(isProjectGlob, rjs({
           baseUrl: "src/scripts/",
           name: "main",
           out: "main.js",
@@ -171,14 +192,14 @@ var jsPipeline = function (filename) {
           useSourceUrl: true,
         }))
       })
-      .pipe(concat, filename)
+      .pipe(concat, dep.name)
       .pipe(function () {
         return gulpif(config.minify, uglify({
           mangle: false,
           compress: false
         }));
       })
-      // .pipe(terser)
+      .pipe(terser)
       .pipe(function () {
         return gulpif(enabled.rev, rev());
       })
@@ -256,7 +277,7 @@ gulp.task('scripts', function () {
             })))
             // .pipe(print())
             .pipe(plumber({errorHandler: onError}))
-            .pipe(jsPipeline(dep.name))
+            .pipe(jsPipeline(dep))
     );
   });
   return merged
