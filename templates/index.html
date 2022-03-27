@@ -4,11 +4,13 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A simple Gulp setup using the AMD modules">
   <title>Automated Workflow with Gulp</title>
-  <link rel="stylesheet" href="../dist/styles/plugins.css">
-  <link rel="stylesheet" href="../dist/styles/main.css">
-  <script src="../src/require.js" defer></script>
-  <script src="../dist/scripts/jquery.js" defer></script>
+  <link rel="preload" href="../dist/styles/plugins.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="../dist/styles/main.css"as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <!-- <script src="../src/require.min.js" defer></script> -->
+  <!-- <script src="../dist/scripts/jquery.js" defer></script> -->
+  <!-- <script src="../dist/scripts/dependencies.js" defer></script> -->
   <script src="../dist/scripts/plugins.js" defer></script>
   <script src="../dist/scripts/main.js" defer></script>
 </head>

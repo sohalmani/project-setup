@@ -13,14 +13,13 @@
     "main.js": {
       "files": [
         "scripts/main.js"
-      ]
+      ],
+      "bower": ["requirejs"]
     },
     "plugins.js": {
       "vendor": [
         "src/scripts/vendor/*.js"
-      ]
-    },
-    "jquery.js": {
+      ],
       "bower": ["jquery"]
     }
   },
@@ -29,7 +28,7 @@
     "dist": "dist/"
   },
   "config": {
-    "devUrl": "aternity.test",
+    "devUrl": "local.test",
     "minify": false
   }
 }

@@ -148,19 +148,25 @@ var cssPipeline = function (filename) {
  * Used to process script assets into compiled assets
  */
 var jsPipeline = function (dep) {
-  var isProjectGlob = project.js.includes(dep.globs.toString());
+  var isProjectGlob = function (file) {
+    var filepath = file.path.replace(file.cwd, '').substring(1).replace(/\\/g, '/');
+    return project.js.includes(filepath.toString());
+  }
 
   return lazypipe()
       .pipe(function () {
         return gulpif(enabled.maps, sourcemaps.init());
       })
-      .pipe(babel, {
-        presets: [['env', {
-          "targets": {
-            "chrome": "58",
-            "ie": "10"
-          }
-        }]]
+      // .pipe(print)
+      .pipe(function () {
+        return gulpif(isProjectGlob, babel({
+          presets: [['env', {
+            "targets": {
+              "chrome": "58",
+              "ie": "10"
+            }
+          }]]
+        }))
       })
       .pipe(function () {
         return gulpif(isProjectGlob, jshint({
@@ -190,16 +196,21 @@ var jsPipeline = function (dep) {
           generateSourceMaps: true,
           preserveLicenseComments: false,
           useSourceUrl: true,
+          paths: {
+            requireLib: "src/require"
+          },
         }))
       })
       .pipe(concat, dep.name)
+      // .pipe(function () {
+      //   return gulpif(config.minify, uglify({
+      //     mangle: false,
+      //     compress: false
+      //   }));
+      // })
       .pipe(function () {
-        return gulpif(config.minify, uglify({
-          mangle: false,
-          compress: false
-        }));
+        return gulpif(isProjectGlob, terser());
       })
-      .pipe(terser)
       .pipe(function () {
         return gulpif(enabled.rev, rev());
       })
@@ -233,7 +244,7 @@ var writeToManifest = function (directory) {
  *
  * Compiles, combines, and optimizes all styles
  */
-gulp.task('styles', function () {
+gulp.task('styles', ['wiredep'], function () {
   var merged = merge();
   manifest.forEachDependency('css', function (dep) {
     var cssPipelineInstance = cssPipeline(dep.name);
@@ -263,18 +274,18 @@ gulp.task('scripts', function () {
     merged.add(
         gulp.src(dep.globs, {base: 'scripts'})
         // Sort plugins alphabetically
-            .pipe(gulpif(dep.name.includes('plugins'), sort(function (a, b) {
+            // .pipe(gulpif(dep.name.includes('plugins'), sort(function (a, b) {
               // Prioritize jQuery
               //console.log(a.history[0]);
               //console.log(b.history[0]);
-              if (a.history[0].includes('jquery')) {
-                return 0;
-              }
-              if (b.history[0].includes('jquery')) {
-                return 1;
-              }
-              return a.history[0].localeCompare(b.history[0]);
-            })))
+              // if (a.history[0].includes('jquery')) {
+              //   return 0;
+              // }
+              // if (b.history[0].includes('jquery')) {
+              //   return 1;
+              // }
+              // return a.history[0].localeCompare(b.history[0]);
+            // })))
             // .pipe(print())
             .pipe(plumber({errorHandler: onError}))
             .pipe(jsPipeline(dep))
@@ -359,6 +370,19 @@ gulp.task('images', function() {
       ]))
       .pipe(gulp.dest(path.dist + 'images'))
       .pipe(browserSync.stream());
+});
+
+// ### Wiredep
+// `gulp wiredep` - Automatically inject Less and Sass Bower dependencies. See
+// https://github.com/taptapship/wiredep
+gulp.task('wiredep', function() {
+  var wiredep = require('wiredep').stream;
+  return gulp.src(project.css)
+    .pipe(wiredep())
+    .pipe(changed(path.source + 'styles', {
+      hasChanged: changed.compareSha1Digest
+    }))
+    .pipe(gulp.dest(path.source + 'styles'));
 });
 
 /**
