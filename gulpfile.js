@@ -168,7 +168,7 @@ var jsPipeline = function (filename) {
       })
       .pipe(function () {
         return gulpif(isMainFile, rjs({
-          baseUrl: "src/scripts/",
+          baseUrl: "assets/scripts/",
           name: "main",
           out: "main.js",
           // optimize: "uglify2",
