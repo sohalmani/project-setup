@@ -15,14 +15,10 @@
     "tests"
   ],
   "dependencies": {
-    "requirejs": "^2.3.6",
     "jquery": "^3.6.0"
   },
-  "overrides": {
-    "requirejs": {
-      "main": "require.js"
-    },
-    "jquery": {
+  "overrides":{
+    "jquery":{
       "main": "dist/jquery.min.js"
     }
   }

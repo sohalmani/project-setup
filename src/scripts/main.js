@@ -1,8 +1,6 @@
 require(['modules/Car'], function(Car) {
   const car = new Car();
   console.log(car.getOwner());
-  console.log('You can create other folders in scripts, like components, layouts, pages, utils, services, etc.');
-  console.log('For more infor, refer to https://engineering.udacity.com/react-folder-structure-for-enterprise-level-applications-f8384eff162b');
  });
 
 // import Queue from './modules/Queue';
