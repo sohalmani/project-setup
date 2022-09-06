@@ -7,7 +7,7 @@
     },
     "plugins.css": {
       "vendor": [
-        "src/styles/vendor/*.scss"
+        "assets/styles/vendor/*.scss"
       ]
     },
     "main.js": {
@@ -17,7 +17,7 @@
     },
     "plugins.js": {
       "vendor": [
-        "src/scripts/vendor/*.js"
+        "assets/scripts/vendor/*.js"
       ]
     },
     "jquery.js": {

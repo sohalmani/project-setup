@@ -17,9 +17,15 @@
   "dependencies": {
     "jquery": "^3.6.0"
   },
-  "overrides":{
-    "jquery":{
+  "devDependencies": {
+    "requirejs": "^2.3.6"
+  },
+  "overrides": {
+    "jquery": {
       "main": "dist/jquery.min.js"
+    },
+    "requirejs": {
+      "main": "require.js"
     }
   }
 }
