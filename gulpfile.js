@@ -43,8 +43,8 @@ var rjs = require('gulp-requirejs-optimize');
 const noticeEnabled = true;
 if (noticeEnabled) {
   console.log('*******************************************************');
-  console.log('* WebEnertia Local Setup Guide available here:        *');
-  console.log('*   https://goo.gl/y8fEHX                             *');
+  console.log('* Starter Local Setup Guide available here:           *');
+  console.log('*                                                     *');
   console.log('* If you have any issues, run these commands:         *');
   console.log('*   npm i -g npm    (until version stays the same)    *');
   console.log('*   npm ci                                            *');

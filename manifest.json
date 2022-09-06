@@ -29,7 +29,7 @@
     "dist": "dist/"
   },
   "config": {
-    "devUrl": "aternity.test",
+    "devUrl": "project-setup.test",
     "minify": false
   }
 }
