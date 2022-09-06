@@ -146,18 +146,16 @@ var cssPipeline = function (filename) {
  * Used to process script assets into compiled assets
  */
 var jsPipeline = function (filename) {
-  var isMainFile = function () {
-    if (filename.indexOf('main') >= 0) {
-      return true;
-    }
-  }
+  var isProjectGlob = project.js.every(function (glob) {
+    return glob.includes(filename);
+  });
 
   return lazypipe()
       .pipe(function () {
         return gulpif(enabled.maps, sourcemaps.init());
       })
       .pipe(function () {
-        return gulpif(isMainFile, babel({
+        return gulpif(isProjectGlob, babel({
           presets: [['env', {
             "targets": {
               "chrome": "58",
@@ -167,22 +165,22 @@ var jsPipeline = function (filename) {
         }))
       })
       .pipe(function () {
-        return gulpif(isMainFile, rjs({
-          baseUrl: "assets/scripts/",
-          name: "main",
-          out: "main.js",
+        return gulpif(isProjectGlob, rjs({
+          baseUrl: path.source + "/scripts",
+          name: filename.toString().split('.')[0],
+          out: filename.toString(),
           // optimize: "uglify2",
           // generateSourceMaps: true,
-          preserveLicenseComments: false,
+          // preserveLicenseComments: false,
           // useSourceUrl: true,
         }))
       })
       .pipe(concat, filename)
       .pipe(function () {
-        return gulpif(true, uglify());
+        return gulpif(config.minify && isProjectGlob, uglify());
       })
       // .pipe(function () {	
-      //   return gulpif(config.minify && isMainFile, terser({
+      //   return gulpif(config.minify && isProjectGlob, terser({
       //     mangle: false,
       //     compress: false
       //   }));	
@@ -250,7 +248,7 @@ gulp.task('scripts', function () {
     merged.add(
         gulp.src(dep.globs, {base: 'scripts'})
         // Sort plugins alphabetically
-            .pipe(gulpif(dep.name.includes('vendor'), sort(function (a, b) {
+            .pipe(gulpif(dep.name.includes('plugins'), sort(function (a, b) {
               // Prioritize jQuery
               //console.log(a.history[0]);
               //console.log(b.history[0]);
@@ -262,7 +260,7 @@ gulp.task('scripts', function () {
               }
               return a.history[0].localeCompare(b.history[0]);
             })))
-            // .pipe(print())
+            //.pipe(print())
             .pipe(plumber({errorHandler: onError}))
             .pipe(jsPipeline(dep.name))
     );
