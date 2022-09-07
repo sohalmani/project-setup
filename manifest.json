@@ -5,6 +5,11 @@
         "styles/main.scss"
       ]
     },
+    "global.css": {
+      "files": [
+        "styles/global.scss"
+      ]
+    },
     "plugins.css": {
       "vendor": [
         "assets/styles/plugins/*.scss"

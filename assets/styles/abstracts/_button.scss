@@ -1,0 +1,47 @@
+@import '../abstracts/variables';
+
+//** Buttons placeholders
+%btn {
+  color: $white;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: 1.4px;
+  padding: 17px 40px;
+  margin: 5px;
+  border-radius: 100px;
+  border-color: $white;
+  border-width: 1px;
+  border-style: solid;
+  display: inline-block;
+  text-transform: uppercase;
+  transition: color 0.3s ease-in-out;
+  position: relative;
+  text-align: left;
+  @include new-phablet{
+    font-size: 12px;
+    padding: 14px 23px;
+  }
+  @include new-mobile {
+    font-size: 12px;
+    padding: 14px 16px;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: -6px;
+    left: -6px;
+    height: calc(100% + 10px);
+    width: calc(100% + 10px);
+    border-radius: 100px;
+    border: 1px solid $white;
+    transition: width 0.3s ease-in-out;
+  }
+
+  &:hover {
+    &::after {
+      width: calc(100% - 10px);
+    }
+  }
+}

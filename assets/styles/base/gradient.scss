@@ -1,0 +1,28 @@
+@import "../abstracts/variables";
+@import "../abstracts/gradient";
+
+/** Main Gradients: specified in UI Kit */
+.gradient-blue-teal-marine {
+  @extend %gradient-blue-teal-marine;
+}
+
+.gradient-purpley-blue {
+  @extend %gradient-purpley-blue;
+}
+
+.gradient-pink-purple {
+  @extend %gradient-pink-purple;
+}
+
+/** Other Gradients */
+.gradient-dark-slate-blue {
+  @extend %gradient-dark-slate-blue;
+};
+
+.gradient-magenta-blue {
+  @extend %gradient-magenta-blue;
+}
+
+.gradient-aqua-marine-pink {
+  @extend %gradient-aqua-marine-pink;
+}

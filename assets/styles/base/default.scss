@@ -1,0 +1,96 @@
+@import '../abstracts/variables';
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behaviour: smooth;
+}
+
+body {
+  font-family: $font-family-redhatdisplay;
+  overflow-x: hidden;
+}
+.wow {
+  opacity: 0;
+}
+.wow.animate-complete {
+  opacity: 1;
+}
+
+section {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+  @include new-desktop-up {
+    padding: 96px 0;
+  }
+  @include new-desktop {
+    padding: 88px 0;
+  }
+  @include new-tablet {
+    padding: 80px 0;
+  }
+  @include new-phablet {
+    padding: 72px 0;
+  }
+  @include new-mobile {
+    padding: 64px 0;
+  }
+}
+
+img {
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  border: 0;
+  vertical-align: top;
+}
+
+img:-moz-loading {
+  visibility: hidden;
+}
+
+ol {
+  padding-left: 25px;
+  @include container-down {
+    padding-left: 20px;
+  }
+  @include tablet-down {
+    padding-left: 15px;
+  }
+  li {
+    color: $black;
+    font-size: 16px;
+    line-height: 1.5;
+    position: relative;
+    list-style: decimal;
+
+    @include container-down {
+      font-size: 14px;
+    }
+  }
+}
+
+ul {
+  padding-left: 30px;
+  @include container-down {
+    padding-left: 25px;
+  }
+  @include tablet-down {
+    padding-left: 20px;
+  }
+  li {
+    color: $black;
+    font-size: 16px;
+    line-height: 1.5;
+    list-style: none;
+    position: relative;
+    @include container-down {
+      font-size: 14px;
+    }
+  }
+}
+
+a {
+  color: $black;
+}

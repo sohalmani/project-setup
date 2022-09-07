@@ -1,0 +1,16 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+h1, h2, h3, h4, h5, h6, p,
+fieldset, form, label,
+table, tbody, tr, th, td,
+figure, footer, header,
+menu, nav, section,
+audio, video, button {
+  margin: 0;
+  border: 0;
+}
