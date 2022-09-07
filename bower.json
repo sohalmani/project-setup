@@ -1,18 +1,31 @@
 {
-  "name": "superteck-ui",
-  "description": "Interface of an IOT application for testing pumps, by SuperTeck",
-  "main": "index.js",
+  "name": "project-setup",
+  "description": "",
+  "main": "",
   "authors": [
-    "Mani Sohal"
+    "Mani Sohal <dev.manisohal@gmail.com>"
   ],
-  "license": "ISC",
-  "homepage": "",
-  "private": true,
+  "license": "MIT",
+  "homepage": "https://github.com/manisohal837/project-setup",
   "ignore": [
     "**/.*",
     "node_modules",
     "bower_components",
     "test",
     "tests"
-  ]
+  ],
+  "dependencies": {
+    "jquery": "^3.6.0"
+  },
+  "devDependencies": {
+    "requirejs": "^2.3.6"
+  },
+  "overrides": {
+    "jquery": {
+      "main": "dist/jquery.min.js"
+    },
+    "requirejs": {
+      "main": "require.js"
+    }
+  }
 }
