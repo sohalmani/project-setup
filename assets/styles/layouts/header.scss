@@ -1,12 +1,16 @@
 header {
   position: relative;
-  padding: 20px 0;
 
   .nav {
-    display: flex;
-    flex-wrap: row wrap;
-    justify-content: space-between;
-    align-items: center;
+    padding: 20px 0;
+    border-bottom: 2px solid $black;
+    
+    .row {
+      display: flex;
+      flex-wrap: row wrap;
+      justify-content: space-between;
+      align-items: center;
+    }
 
     &__logo {
       max-width: 130px;
