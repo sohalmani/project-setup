@@ -45,3 +45,23 @@
     }
   }
 }
+
+//** Slick Arrow
+%slick-arrow {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: 32px;
+  height: 32px;
+  font-size: 0;
+  outline: none;
+  border: 0;
+  transform: translateY(-50%);
+  text-indent: 999px;
+  background-color: transparent;
+  z-index: 1;
+  @include new-phablet-down {
+    width: 15px;
+    height: 15px;
+  }
+}

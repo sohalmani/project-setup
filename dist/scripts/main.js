@@ -14,25 +14,40 @@ define('modules/Car',["./Person"], function (Person) {
 define('modules/Slider',[],function() {
   const Slider = (function() {
     const testimionial = $('.testimonial');
-    const init = function() {
-      const wrapper = testimionial.find('.testimonial__items');
-      
-      wrapper.slick();
+
+
+    const initSlider = function() {
+      if(testimionial.length === 0) return;
+     
+      testimionial.each(function() {
+        const slides = $(this).find('.testimonial-card').length;
+        const wrapper = $(this).find('.testimonial__items'); 
+
+        if (slides > 1) {
+          wrapper.slick();  
+        }
+      });
     }
+
+    const addEventhandler = function(handler) {
+      ['load', 'resize'].forEach(ev => window.addEventListener(ev, handler));
+    }
+
     return {
-      $testimonial: testimionial,
-      $init: init,
+      $initSlider: initSlider,
+      addHandler : addEventhandler, 
     };
   })();
 
   return Slider;
 });
 
-require(['modules/Car', 'modules/Slider'], function(Car, Slider) {
-  // const car = new Car();
 
-  console.log(Slider.$init());
-  // console.log(car.getOwner());
+
+require(['modules/Car', 'modules/Slider'], function(Car, Slider) {
+
+  // Slider.$initSlider();
+  Slider.addHandler(Slider.$initSlider())
  });
 
 

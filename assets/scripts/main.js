@@ -1,8 +1,7 @@
 require(['modules/Car', 'modules/Slider'], function(Car, Slider) {
-  // const car = new Car();
 
-  console.log(Slider.$init());
-  // console.log(car.getOwner());
+  // Slider.$initSlider();
+  Slider.addHandler(Slider.$initSlider())
  });
 
 

@@ -1,0 +1,24 @@
+@import '../abstracts/variables';
+@import '../abstracts/button';
+
+//** Slick Arrow
+.slick-arrow {
+  &.slick-prev {
+    @extend%slick-arrow;
+    background: url(/dist/images/icons/slider-prev-arrow.png) no-repeat;
+    background-position: center;
+    background-size: 100%;
+    left: -15px;
+  }
+  &.slick-next {
+    @extend%slick-arrow;
+    background: url(/dist/images/icons/slider-next-arrow.svg) no-repeat;
+    background-position: center;
+    background-size: 100%;
+    right: -15px;
+  }
+  &.slick-disabled {
+    pointer-events: none;
+    opacity: 0.6;
+  }
+}
