@@ -1,7 +1,10 @@
-require(['modules/Car'], function(Car) {
-  const car = new Car();
+require(['modules/Car', 'modules/Slider'], function(Car, Slider) {
+  // const car = new Car();
+
+  console.log(Slider.$init());
   // console.log(car.getOwner());
  });
+
 
 // import Queue from './modules/Queue';
 // import Stack from './modules/Stack';

@@ -169,7 +169,7 @@ var jsPipeline = function (filename) {
           baseUrl: path.source + "/scripts",
           name: filename.toString().split('.')[0],
           out: filename.toString(),
-          // optimize: "uglify2",
+          optimize: "none",
           // generateSourceMaps: true,
           // preserveLicenseComments: false,
           // useSourceUrl: true,
