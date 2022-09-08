@@ -15,7 +15,6 @@ define('modules/Slider',[],function() {
   const Slider = (function() {
     const testimionial = $('.testimonial');
 
-
     const initSlider = function() {
       if(testimionial.length === 0) return;
      
@@ -34,7 +33,7 @@ define('modules/Slider',[],function() {
     }
 
     return {
-      $initSlider: initSlider,
+      initSlider: initSlider,
       addHandler : addEventhandler, 
     };
   })();
@@ -44,10 +43,35 @@ define('modules/Slider',[],function() {
 
 
 
-require(['modules/Car', 'modules/Slider'], function(Car, Slider) {
+define('modules/VideoOverlay',[],function() {
+  const VideoOverlay = (function() {
+    const playButton = $('.video-play-button');
+
+    const init = function() {
+
+      playButton.each(function() {
+        $(this).on('click', function(e) {
+          e.preventDefault();
+          const videoSrc = $(this).attr('href');
+          const videoId = videoSrc.split("v=")[1];
+
+          console.log('test', videoId);
+        });
+      })
+    }
+
+    return {
+      $init: init,
+    }
+  })();
+
+  return VideoOverlay;
+});
+require(['modules/Car', 'modules/Slider', 'modules/VideoOverlay'], function(Car, Slider, VideoOverlay) {
 
   // Slider.$initSlider();
-  Slider.addHandler(Slider.$initSlider())
+  Slider.addHandler(Slider.initSlider())
+  VideoOverlay.$init();
  });
 
 

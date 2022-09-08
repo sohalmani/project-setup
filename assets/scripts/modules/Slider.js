@@ -2,7 +2,6 @@ define(function() {
   const Slider = (function() {
     const testimionial = $('.testimonial');
 
-
     const initSlider = function() {
       if(testimionial.length === 0) return;
      
@@ -21,7 +20,7 @@ define(function() {
     }
 
     return {
-      $initSlider: initSlider,
+      initSlider: initSlider,
       addHandler : addEventhandler, 
     };
   })();

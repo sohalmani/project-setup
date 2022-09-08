@@ -1,0 +1,80 @@
+.video-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.5s ease-in-out;
+  @include desktop-down {
+    padding: 50px 0;
+  }
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(#979797, 0.8);
+  }
+
+  .video-wrap {
+    max-width: 1100px;
+    width: 100%;
+    height: 727px;
+    border-radius: $border-radius-primary;
+    margin: auto;
+    position: relative;
+    //@include new-desktop {
+    //  height: 500px;
+    //}
+    //@include new-tablet {
+    //  height: 280px;
+    //}
+    //@include new-phablet {
+    //  height: 230px;
+    //}
+    //@include new-mobile {
+    //  height: 200px;
+    //}
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border-radius: $border-radius-primary;
+      overflow: hidden;
+      border: 2px solid $white;
+    }
+  }
+
+  .close {
+    cursor: pointer;
+    width: 21px;
+    height: 21px;
+    display: inline-block;
+    background: url(/wp-content/themes/dzs/assets/images/icons/cross-icon.svg) no-repeat center;
+    background-size: contain;
+    position: absolute;
+    top: -30px;
+    right: -20px;
+    @include container-down {
+      top: -30px;
+      right: -10px;
+    }
+  }
+
+  &.active {
+    opacity: 1;
+    z-index: 100;
+    visibility: visible;
+  }
+}
