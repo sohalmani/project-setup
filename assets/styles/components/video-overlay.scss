@@ -34,18 +34,6 @@
     border-radius: $border-radius-primary;
     margin: auto;
     position: relative;
-    //@include new-desktop {
-    //  height: 500px;
-    //}
-    //@include new-tablet {
-    //  height: 280px;
-    //}
-    //@include new-phablet {
-    //  height: 230px;
-    //}
-    //@include new-mobile {
-    //  height: 200px;
-    //}
 
     iframe {
       width: 100%;
@@ -61,7 +49,7 @@
     width: 21px;
     height: 21px;
     display: inline-block;
-    background: url(/wp-content/themes/dzs/assets/images/icons/cross-icon.svg) no-repeat center;
+    background: url(/assets/images/icons/cross-icon.svg) no-repeat center;
     background-size: contain;
     position: absolute;
     top: -30px;
