@@ -155,16 +155,6 @@ var jsPipeline = function (filename) {
         return gulpif(enabled.maps, sourcemaps.init());
       })
       .pipe(function () {
-        return gulpif(isProjectGlob, babel({
-          presets: [['env', {
-            "targets": {
-              "chrome": "58",
-              "ie": "10"
-            }
-          }]]
-        }))
-      })
-      .pipe(function () {
         return gulpif(isProjectGlob, rjs({
           baseUrl: path.source + "/scripts",
           name: filename.toString().split('.')[0],
@@ -173,6 +163,16 @@ var jsPipeline = function (filename) {
           // generateSourceMaps: true,
           // preserveLicenseComments: false,
           // useSourceUrl: true,
+        }))
+      })
+      .pipe(function () {
+        return gulpif(isProjectGlob, babel({
+          presets: [['env', {
+            "targets": {
+              "chrome": "58",
+              "ie": "10"
+            }
+          }]]
         }))
       })
       .pipe(concat, filename)

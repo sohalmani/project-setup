@@ -1,56 +1,58 @@
-define('modules/Person',{
-    name: "John Doe",
+'use strict';
+
+define('modules/Person', {
+  name: "John Doe"
 });
 
-define('modules/Car',["./Person"], function (Person) {
-    function Car() {
-        this.getOwner = function () {
-            return "The owner is " + Person.name;
-        };
-    }
-    return Car;
+define('modules/Car', ["./Person"], function (Person) {
+  function Car() {
+    this.getOwner = function () {
+      return "The owner is " + Person.name;
+    };
+  }
+  return Car;
 });
 
-define('modules/Slider',[],function() {
-  const Slider = (function() {
-    const testimionial = $('.testimonial');
+define('modules/Slider', [], function () {
+  var Slider = function () {
+    var testimionial = $('.testimonial');
 
-    const initSlider = function() {
-      if(testimionial.length === 0) return;
-     
-      testimionial.each(function() {
-        const slides = $(this).find('.testimonial-card').length;
-        const wrapper = $(this).find('.testimonial__items'); 
+    var initSlider = function initSlider() {
+      if (testimionial.length === 0) return;
+
+      testimionial.each(function () {
+        var slides = $(this).find('.testimonial-card').length;
+        var wrapper = $(this).find('.testimonial__items');
 
         if (slides > 1) {
-          wrapper.slick();  
+          wrapper.slick();
         }
       });
-    }
+    };
 
-    const addEventhandler = function(handler) {
-      ['load', 'resize'].forEach(ev => window.addEventListener(ev, handler));
-    }
+    var addEventhandler = function addEventhandler(handler) {
+      ['load', 'resize'].forEach(function (ev) {
+        return window.addEventListener(ev, handler);
+      });
+    };
 
     return {
       initSlider: initSlider,
-      addHandler : addEventhandler, 
+      addHandler: addEventhandler
     };
-  })();
+  }();
 
   return Slider;
 });
 
-
-
-define('modules/VideoOverlay',[],function () {
-  const VideoOverlay = (function () {
-    const playButton = $('.video-play-button');
-    const overlayElement = $('.video-overlay');
+define('modules/VideoOverlay', [], function () {
+  var VideoOverlay = function () {
+    var playButton = $('.video-play-button');
+    var overlayElement = $('.video-overlay');
     var videoId;
     var ampersandPosition;
 
-    const extractVideoUrl = function (url) {
+    var extractVideoUrl = function extractVideoUrl(url) {
       if (url === '') return;
 
       if (url.indexOf('watch') > 0) {
@@ -60,7 +62,7 @@ define('modules/VideoOverlay',[],function () {
         if (ampersandPosition != -1) {
           videoId = videoId.substring(0, ampersandPosition);
         }
-        return (videoUrl = 'https://youtube.com/embed/' + videoId);
+        return videoUrl = 'https://youtube.com/embed/' + videoId;
       }
 
       if (url.indexOf('youtu.be') > 0) {
@@ -71,26 +73,21 @@ define('modules/VideoOverlay',[],function () {
           videoId = videoId.substring(0, ampersandPosition);
         }
 
-        return (url = 'https://youtube.com/embed/' + videoId);
+        return url = 'https://youtube.com/embed/' + videoId;
       }
     };
 
-    const overleyOpen = function (videoUrl) {
+    var overleyOpen = function overleyOpen(videoUrl) {
       if (overlayElement.length === 0) return;
 
       overlayElement.find('iframe').attr('src', videoUrl);
       overlayElement.addClass('active');
     };
 
-    const closeOverlay = function (e) {
+    var closeOverlay = function closeOverlay(e) {
       var clickedElement = e.target;
 
-      if (
-        $(clickedElement).hasClass('video-overlay') ||
-        $(clickedElement).hasClass('close') ||
-        $(clickedElement).hasClass('video-wrap') ||
-        $(clickedElement).hasClass('container')
-      ) {
+      if ($(clickedElement).hasClass('video-overlay') || $(clickedElement).hasClass('close') || $(clickedElement).hasClass('video-wrap') || $(clickedElement).hasClass('container')) {
         $('.video-overlay').removeClass('active');
         $('.video-overlay iframe').attr('src', '');
       } else if (e.key == 'Escape') {
@@ -99,19 +96,19 @@ define('modules/VideoOverlay',[],function () {
       }
     };
 
-    const setVideoBoxDimesnions = function () {
+    var setVideoBoxDimesnions = function setVideoBoxDimesnions() {
       if (overlayElement.find('.video-wrap').length) {
         var videoBoxWidth = overlayElement.find('.container').width();
-        var videoBoxHeight = (videoBoxWidth / 16) * 9;
+        var videoBoxHeight = videoBoxWidth / 16 * 9;
 
         if (videoBoxHeight + 100 > $(window).height()) {
           videoBoxHeight = overlayElement.height();
-          videoBoxWidth = (videoBoxHeight / 9) * 16;
+          videoBoxWidth = videoBoxHeight / 9 * 16;
         }
 
         overlayElement.find('.video-wrap').css({
           width: videoBoxWidth + 'px',
-          height: videoBoxHeight + 'px',
+          height: videoBoxHeight + 'px'
         });
 
         var windowWidth = $(window).width();
@@ -121,14 +118,14 @@ define('modules/VideoOverlay',[],function () {
           }
         }
       }
-    }
+    };
 
-    const init = function () {
+    var init = function init() {
       playButton.each(function () {
         $(this).on('click', function (e) {
           e.preventDefault();
 
-          const videoSrc = $(this).attr('href');
+          var videoSrc = $(this).attr('href');
 
           overleyOpen(extractVideoUrl(videoSrc));
         });
@@ -139,20 +136,19 @@ define('modules/VideoOverlay',[],function () {
     };
 
     return {
-      $init: init,
+      $init: init
     };
-  })();
+  }();
 
   return VideoOverlay;
 });
 
-require(['modules/Car', 'modules/Slider', 'modules/VideoOverlay'], function(Car, Slider, VideoOverlay) {
+require(['modules/Car', 'modules/Slider', 'modules/VideoOverlay'], function (Car, Slider, VideoOverlay) {
 
   // Slider.$initSlider();
-  Slider.addHandler(Slider.initSlider())
+  Slider.addHandler(Slider.initSlider());
   VideoOverlay.$init();
- });
-
+});
 
 // import Queue from './modules/Queue';
 // import Stack from './modules/Stack';
@@ -188,7 +184,5 @@ require(['modules/Car', 'modules/Slider', 'modules/VideoOverlay'], function(Car,
 
 // console.log(stack.peek());
 
-define("main", function(){});
-
-
+define("main", function () {});
 //# sourceMappingURL=main.js.map
