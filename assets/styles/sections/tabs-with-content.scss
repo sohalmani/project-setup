@@ -1,0 +1,40 @@
+.tabs-with-content {
+  .tabs {
+    &__nav {
+      display: flex;
+      align-items: center;
+      padding-left: 0;
+
+      li {
+        padding: 20px;
+        background-color: aliceblue;
+        border: 1px solid $black;
+        transition: background-color 0.3 ease-in-out, color 0.3s ease-in-out;
+
+        &:not(:last-child) {
+          margin-right: 30px;
+        }
+
+        &.active {
+          color: $white;
+          background-color: $purpley-pink;
+
+        }
+      }
+    }
+
+    &__content {
+      padding-top: 20px;
+    }
+  }
+  .tab-content {
+    display: none;
+    padding: 40px;
+    background-color: $soft-blue;
+    color: $white;
+
+    &.active {
+      display: block;
+    }
+  }
+}

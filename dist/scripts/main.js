@@ -170,10 +170,10 @@ define('modules/ContentInAccordion', [], function () {
 define('modules/TabsWithContent', [], function () {
   var TabsWithContent = function () {
     var $tabsWithConetnt = $('.tabs-with-content');
-    var $tabItem = $tabsWithConetnt.find('.tabs-nav li');
+    var $tabItem = $tabsWithConetnt.find('.tabs__nav li');
     var $tabContent = $tabsWithConetnt.find('.tab-content');
 
-    var addIds = function addIds(elements) {
+    var addTabId = function addTabId(elements) {
       var attribute = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'data-tab';
 
       elements.each(function (i, element) {
@@ -181,11 +181,33 @@ define('modules/TabsWithContent', [], function () {
       });
     };
 
+    var addActiveOnTabContent = function addActiveOnTabContent(tabId) {
+      $tabContent.removeClass('active');
+      $('.tab-content[tab-id="' + tabId + '"]').addClass('active');
+    };
+
+    var firstTabShow = function firstTabShow() {
+      $tabsWithConetnt.find('.tabs__nav li:first').addClass('active');
+      $tabsWithConetnt.find('.tab-content:first').addClass('active');
+    };
+
     var init = function init() {
       if (!$tabsWithConetnt.length) return;
 
-      addIds($tabItem);
-      addIds($tabContent, "tab-id");
+      addTabId($tabItem);
+      addTabId($tabContent, "tab-id");
+      firstTabShow();
+
+      $tabItem.each(function (i, element) {
+        $(this).on('click', function (e) {
+          var tabId = $(this).attr('data-tab');
+
+          $tabItem.removeClass('active');
+          $(this).addClass('active');
+
+          addActiveOnTabContent(tabId);
+        });
+      });
     };
 
     return {
@@ -195,6 +217,22 @@ define('modules/TabsWithContent', [], function () {
 
   return TabsWithContent;
 });
+
+// $(function() {
+//   $('.tabs-nav a').click(function() {
+
+//     // Check for active
+//     $('.tabs-nav li').removeClass('active');
+//     $(this).parent().addClass('active');
+
+//     // Display active tab
+//     let currentTab = $(this).attr('href');
+//     $('.tabs-content div').hide();
+//     $(currentTab).show();
+
+//     return false;
+//   });
+// });
 require(['modules/Slider', 'modules/VideoOverlay', 'modules/ContentInAccordion', 'modules/TabsWithContent'], function (Slider, VideoOverlay, ContentInAccordion, TabsWithContent) {
 
   Slider.addHandler(Slider.initSlider());
