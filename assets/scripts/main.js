@@ -1,7 +1,8 @@
-require(['modules/Car', 'modules/Slider', 'modules/VideoOverlay'], function(Car, Slider, VideoOverlay) {
+require(['modules/Slider', 'modules/VideoOverlay', 'modules/ContentInAccordion'], function(Slider, VideoOverlay, ContentInAccordion) {
 
   Slider.addHandler(Slider.initSlider())
   VideoOverlay.init();
+  ContentInAccordion.init();
  });
 
 

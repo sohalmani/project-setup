@@ -1,31 +1,24 @@
 'use strict';
 
-define('modules/Person', {
-  name: "John Doe"
-});
-
-define('modules/Car', ["./Person"], function (Person) {
-  function Car() {
-    this.getOwner = function () {
-      return "The owner is " + Person.name;
-    };
-  }
-  return Car;
-});
-
 define('modules/Slider', [], function () {
   var Slider = function () {
-    var testimionial = $('.testimonial');
+    var $testimionial = $('.testimonial');
 
     var initSlider = function initSlider() {
-      if (testimionial.length === 0) return;
+      if ($testimionial.length === 0) return;
 
-      testimionial.each(function () {
+      $testimionial.each(function () {
         var slides = $(this).find('.testimonial-card').length;
         var wrapper = $(this).find('.testimonial__items');
 
         if (slides > 1) {
-          wrapper.slick();
+          wrapper.slick({
+            infinite: true,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            dots: false,
+            arrows: true
+          });
         }
       });
     };
@@ -142,10 +135,43 @@ define('modules/VideoOverlay', [], function () {
   return VideoOverlay;
 });
 
-require(['modules/Car', 'modules/Slider', 'modules/VideoOverlay'], function (Car, Slider, VideoOverlay) {
+define('modules/ContentInAccordion', [], function () {
+  var ContentInAccordion = function () {
+    var $contentInAccordion = $('.content-in-accordion');
+    var $panelGroup = $contentInAccordion.find('.panel-group');
+
+    var firstPanelOpen = function firstPanelOpen() {
+      $('.content-in-accordion .panel:first .panel__body').show();
+      $('.content-in-accordion .panel:first .panel__heading').addClass('open');
+    };
+
+    var init = function init() {
+      if ($contentInAccordion.length) {
+        firstPanelOpen();
+
+        $panelGroup.on('click', function (e) {
+          e.preventDefault();
+
+          var clickedElement = e.target;
+
+          $(clickedElement).closest('.panel').find('.panel__heading').addClass('open');
+          $(clickedElement).closest('.panel').find('.panel__body').toggleClass('open').slideToggle();
+        });
+      }
+    };
+
+    return {
+      init: init
+    };
+  }();
+
+  return ContentInAccordion;
+});
+require(['modules/Slider', 'modules/VideoOverlay', 'modules/ContentInAccordion'], function (Slider, VideoOverlay, ContentInAccordion) {
 
   Slider.addHandler(Slider.initSlider());
   VideoOverlay.init();
+  ContentInAccordion.init();
 });
 
 // import Queue from './modules/Queue';
