@@ -47,8 +47,8 @@ define('modules/Slider', [], function () {
 
 define('modules/VideoOverlay', [], function () {
   var VideoOverlay = function () {
-    var playButton = $('.video-play-button');
-    var overlayElement = $('.video-overlay');
+    var $playButton = $('.video-play-button');
+    var $overlayElement = $('.video-overlay');
     var videoId;
     var ampersandPosition;
 
@@ -62,7 +62,7 @@ define('modules/VideoOverlay', [], function () {
         if (ampersandPosition != -1) {
           videoId = videoId.substring(0, ampersandPosition);
         }
-        return videoUrl = 'https://youtube.com/embed/' + videoId;
+        return 'https://youtube.com/embed/' + videoId;
       }
 
       if (url.indexOf('youtu.be') > 0) {
@@ -73,15 +73,15 @@ define('modules/VideoOverlay', [], function () {
           videoId = videoId.substring(0, ampersandPosition);
         }
 
-        return url = 'https://youtube.com/embed/' + videoId;
+        return 'https://youtube.com/embed/' + videoId;
       }
     };
 
     var overleyOpen = function overleyOpen(videoUrl) {
-      if (overlayElement.length === 0) return;
+      if ($overlayElement.length === 0) return;
 
-      overlayElement.find('iframe').attr('src', videoUrl);
-      overlayElement.addClass('active');
+      $overlayElement.find('iframe').attr('src', videoUrl);
+      $overlayElement.addClass('active');
     };
 
     var closeOverlay = function closeOverlay(e) {
@@ -97,16 +97,16 @@ define('modules/VideoOverlay', [], function () {
     };
 
     var setVideoBoxDimesnions = function setVideoBoxDimesnions() {
-      if (overlayElement.find('.video-wrap').length) {
-        var videoBoxWidth = overlayElement.find('.container').width();
+      if ($overlayElement.find('.video-wrap').length) {
+        var videoBoxWidth = $overlayElement.find('.container').width();
         var videoBoxHeight = videoBoxWidth / 16 * 9;
 
         if (videoBoxHeight + 100 > $(window).height()) {
-          videoBoxHeight = overlayElement.height();
+          videoBoxHeight = $overlayElement.height();
           videoBoxWidth = videoBoxHeight / 9 * 16;
         }
 
-        overlayElement.find('.video-wrap').css({
+        $overlayElement.find('.video-wrap').css({
           width: videoBoxWidth + 'px',
           height: videoBoxHeight + 'px'
         });
@@ -114,19 +114,18 @@ define('modules/VideoOverlay', [], function () {
         var windowWidth = $(window).width();
         if (windowWidth >= 1200) {
           if ($(window).height() >= 776) {
-            overlayElement.find('.video-wrap').css({ height: '620px' });
+            $overlayElement.find('.video-wrap').css({ height: '620px' });
           }
         }
       }
     };
 
     var init = function init() {
-      playButton.each(function () {
+      $playButton.each(function () {
         $(this).on('click', function (e) {
           e.preventDefault();
 
           var videoSrc = $(this).attr('href');
-
           overleyOpen(extractVideoUrl(videoSrc));
         });
       });
@@ -136,7 +135,7 @@ define('modules/VideoOverlay', [], function () {
     };
 
     return {
-      $init: init
+      init: init
     };
   }();
 
@@ -145,9 +144,8 @@ define('modules/VideoOverlay', [], function () {
 
 require(['modules/Car', 'modules/Slider', 'modules/VideoOverlay'], function (Car, Slider, VideoOverlay) {
 
-  // Slider.$initSlider();
   Slider.addHandler(Slider.initSlider());
-  VideoOverlay.$init();
+  VideoOverlay.init();
 });
 
 // import Queue from './modules/Queue';

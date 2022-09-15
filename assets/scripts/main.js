@@ -1,8 +1,7 @@
 require(['modules/Car', 'modules/Slider', 'modules/VideoOverlay'], function(Car, Slider, VideoOverlay) {
 
-  // Slider.$initSlider();
   Slider.addHandler(Slider.initSlider())
-  VideoOverlay.$init();
+  VideoOverlay.init();
  });
 
 

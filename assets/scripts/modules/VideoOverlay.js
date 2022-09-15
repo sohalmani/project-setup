@@ -1,12 +1,13 @@
 define(function () {
   const VideoOverlay = (function () {
-    const playButton = $('.video-play-button');
-    const overlayElement = $('.video-overlay');
+    const $playButton = $('.video-play-button');
+    const $overlayElement = $('.video-overlay');
     var videoId;
     var ampersandPosition;
 
-    const extractVideoUrl = function (url) {
+    const extractVideoUrl = function (url) { 
       if (url === '') return;
+
 
       if (url.indexOf('watch') > 0) {
         videoId = url.split('v=')[1];
@@ -15,7 +16,7 @@ define(function () {
         if (ampersandPosition != -1) {
           videoId = videoId.substring(0, ampersandPosition);
         }
-        return (videoUrl = 'https://youtube.com/embed/' + videoId);
+        return 'https://youtube.com/embed/' + videoId;
       }
 
       if (url.indexOf('youtu.be') > 0) {
@@ -26,15 +27,15 @@ define(function () {
           videoId = videoId.substring(0, ampersandPosition);
         }
 
-        return (url = 'https://youtube.com/embed/' + videoId);
+        return 'https://youtube.com/embed/' + videoId;
       }
     };
 
     const overleyOpen = function (videoUrl) {
-      if (overlayElement.length === 0) return;
+      if ($overlayElement.length === 0) return;
 
-      overlayElement.find('iframe').attr('src', videoUrl);
-      overlayElement.addClass('active');
+      $overlayElement.find('iframe').attr('src', videoUrl);
+      $overlayElement.addClass('active');
     };
 
     const closeOverlay = function (e) {
@@ -55,16 +56,16 @@ define(function () {
     };
 
     const setVideoBoxDimesnions = function () {
-      if (overlayElement.find('.video-wrap').length) {
-        var videoBoxWidth = overlayElement.find('.container').width();
+      if ($overlayElement.find('.video-wrap').length) {
+        var videoBoxWidth = $overlayElement.find('.container').width();
         var videoBoxHeight = (videoBoxWidth / 16) * 9;
 
         if (videoBoxHeight + 100 > $(window).height()) {
-          videoBoxHeight = overlayElement.height();
+          videoBoxHeight = $overlayElement.height();
           videoBoxWidth = (videoBoxHeight / 9) * 16;
         }
 
-        overlayElement.find('.video-wrap').css({
+        $overlayElement.find('.video-wrap').css({
           width: videoBoxWidth + 'px',
           height: videoBoxHeight + 'px',
         });
@@ -72,19 +73,18 @@ define(function () {
         var windowWidth = $(window).width();
         if (windowWidth >= 1200) {
           if ($(window).height() >= 776) {
-            overlayElement.find('.video-wrap').css({ height: '620px' });
+            $overlayElement.find('.video-wrap').css({ height: '620px' });
           }
         }
       }
     }
 
     const init = function () {
-      playButton.each(function () {
+      $playButton.each(function () {
         $(this).on('click', function (e) {
           e.preventDefault();
 
           const videoSrc = $(this).attr('href');
-
           overleyOpen(extractVideoUrl(videoSrc));
         });
       });
@@ -94,7 +94,7 @@ define(function () {
     };
 
     return {
-      $init: init,
+      init: init,
     };
   })();
 
