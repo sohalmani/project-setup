@@ -14,7 +14,7 @@ define(function () {
 
         $panelGroup.on('click', function(e) {
           e.preventDefault();
-
+         
           const clickedElement = e.target;
 
           $(clickedElement).closest('.panel').find('.panel__heading').addClass('open');

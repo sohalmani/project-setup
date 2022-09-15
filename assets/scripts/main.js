@@ -1,8 +1,9 @@
-require(['modules/Slider', 'modules/VideoOverlay', 'modules/ContentInAccordion'], function(Slider, VideoOverlay, ContentInAccordion) {
+require(['modules/Slider', 'modules/VideoOverlay', 'modules/ContentInAccordion', 'modules/TabsWithContent'], function(Slider, VideoOverlay, ContentInAccordion, TabsWithContent) {
 
   Slider.addHandler(Slider.initSlider())
   VideoOverlay.init();
   ContentInAccordion.init();
+  TabsWithContent.init();
  });
 
 

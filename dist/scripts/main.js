@@ -167,11 +167,40 @@ define('modules/ContentInAccordion', [], function () {
 
   return ContentInAccordion;
 });
-require(['modules/Slider', 'modules/VideoOverlay', 'modules/ContentInAccordion'], function (Slider, VideoOverlay, ContentInAccordion) {
+define('modules/TabsWithContent', [], function () {
+  var TabsWithContent = function () {
+    var $tabsWithConetnt = $('.tabs-with-content');
+    var $tabItem = $tabsWithConetnt.find('.tabs-nav li');
+    var $tabContent = $tabsWithConetnt.find('.tab-content');
+
+    var addIds = function addIds(elements) {
+      var attribute = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'data-tab';
+
+      elements.each(function (i, element) {
+        element.setAttribute(attribute, "tab" + (i + 1));
+      });
+    };
+
+    var init = function init() {
+      if (!$tabsWithConetnt.length) return;
+
+      addIds($tabItem);
+      addIds($tabContent, "tab-id");
+    };
+
+    return {
+      init: init
+    };
+  }();
+
+  return TabsWithContent;
+});
+require(['modules/Slider', 'modules/VideoOverlay', 'modules/ContentInAccordion', 'modules/TabsWithContent'], function (Slider, VideoOverlay, ContentInAccordion, TabsWithContent) {
 
   Slider.addHandler(Slider.initSlider());
   VideoOverlay.init();
   ContentInAccordion.init();
+  TabsWithContent.init();
 });
 
 // import Queue from './modules/Queue';
