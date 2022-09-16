@@ -177,7 +177,7 @@ define('modules/TabsWithContent', [], function () {
       var attribute = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'data-tab';
 
       elements.each(function (i, element) {
-        element.setAttribute(attribute, "tab" + (i + 1));
+        element.setAttribute(attribute, 'tab' + (i + 1));
       });
     };
 
@@ -191,12 +191,24 @@ define('modules/TabsWithContent', [], function () {
       $tabsWithConetnt.find('.tab-content:first').addClass('active');
     };
 
+    var truncateLines = function truncateLines() {
+      var textWrapper = document.querySelector('.tabs-with-content .content-wrap');
+      var options = {
+        ellipsis: ' \u2026 ',
+        height: 200,
+        truncate: "word"
+      };
+
+      var dot = new Dotdotdot(textWrapper, options);
+    };
+
     var init = function init() {
       if (!$tabsWithConetnt.length) return;
 
       addTabId($tabItem);
-      addTabId($tabContent, "tab-id");
+      addTabId($tabContent, 'tab-id');
       firstTabShow();
+      truncateLines();
 
       $tabItem.each(function (i, element) {
         $(this).on('click', function (e) {
@@ -233,6 +245,7 @@ define('modules/TabsWithContent', [], function () {
 //     return false;
 //   });
 // });
+
 require(['modules/Slider', 'modules/VideoOverlay', 'modules/ContentInAccordion', 'modules/TabsWithContent'], function (Slider, VideoOverlay, ContentInAccordion, TabsWithContent) {
 
   Slider.addHandler(Slider.initSlider());
