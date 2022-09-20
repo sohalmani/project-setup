@@ -10,22 +10,15 @@
         "styles/global.scss"
       ]
     },
-    "plugins.css": {
-      "vendor": [
-        "assets/styles/plugins/*.scss"
-      ]
-    },
     "main.js": {
       "files": [
         "scripts/main.js"
       ]
     },
-    "plugins.js": {
+    "global.js": {
       "vendor": [
-        "assets/scripts/plugins/*.js"
-      ]
-    },
-    "jquery.js": {
+        "assets/scripts/vendor/*.js"
+      ],
       "bower": ["jquery"]
     }
   },
