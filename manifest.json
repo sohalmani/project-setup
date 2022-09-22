@@ -17,7 +17,7 @@
     },
     "global.js": {
       "vendor": [
-        "assets/scripts/vendor/*.js"
+        "assets/scripts/plugins/*.js"
       ],
       "bower": ["jquery"]
     }

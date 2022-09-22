@@ -199,7 +199,7 @@ define('modules/TabsWithContent', [], function () {
         truncate: "word"
       };
 
-      var dot = new Dotdotdot(textWrapper, options);
+      var dot = $(textWrapper).dotdotdot(options);
     };
 
     var init = function init() {

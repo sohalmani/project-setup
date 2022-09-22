@@ -28,7 +28,7 @@ define(function () {
         truncate: "word",
       };
 
-      let dot = new Dotdotdot(textWrapper, options);
+      let dot = $(textWrapper).dotdotdot(options);
     };
 
     const init = function () {

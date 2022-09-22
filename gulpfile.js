@@ -146,9 +146,17 @@ var cssPipeline = function (filename) {
  * Used to process script assets into compiled assets
  */
 var jsPipeline = function (filename) {
-  var isProjectGlob = project.js.every(function (glob) {
-    return glob.includes(filename);
-  });
+  var isProjectGlob = function (vinyl) {
+    var isVinylFileInProjectGlobs = false;
+    
+    isVinylFileInProjectGlobs = project.js.every(function (glob) {
+      if (!!glob.includes(vinyl.relative.replace(/^..\//,""))) {
+        return true;
+      }
+    });
+    
+    return isVinylFileInProjectGlobs;
+  };
 
   return lazypipe()
       .pipe(function () {
