@@ -31,6 +31,8 @@
 
       p {
         margin-top: 15px;
+
+        @include line-clamp(4);
       }
     }
   }

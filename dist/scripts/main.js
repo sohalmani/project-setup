@@ -233,11 +233,18 @@ define('modules/TabsWithContent', [], function () {
 define('modules/CardsWithIcon', [], function () {
   var CardsWithIcon = function () {
     var $cardsBlade = $('.cards-with-icon');
+    var $cardTitle = $('.cards-with-icon .card .card__title');
+
+    var triggerMatchHeight = function triggerMatchHeight(element) {
+      $cardsBlade.each(function () {
+        $(this).find(element).matchHeight();
+      });
+    };
 
     var init = function init() {
-      if ($cardsBlade.length) {
-        console.log('Test');
-      }
+      if (!$cardsBlade.length) return;
+
+      $(window).on('load, resize', triggerMatchHeight($cardTitle));
     };
 
     return {
