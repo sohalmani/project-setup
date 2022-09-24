@@ -230,28 +230,30 @@ define('modules/TabsWithContent', [], function () {
   return TabsWithContent;
 });
 
-// $(function() {
-//   $('.tabs-nav a').click(function() {
+define('modules/CardsWithIcon', [], function () {
+  var CardsWithIcon = function () {
+    var $cardsBlade = $('.cards-with-icon');
 
-//     // Check for active
-//     $('.tabs-nav li').removeClass('active');
-//     $(this).parent().addClass('active');
+    var init = function init() {
+      if ($cardsBlade.length) {
+        console.log('Test');
+      }
+    };
 
-//     // Display active tab
-//     let currentTab = $(this).attr('href');
-//     $('.tabs-content div').hide();
-//     $(currentTab).show();
+    return {
+      init: init
+    };
+  }();
 
-//     return false;
-//   });
-// });
-
-require(['modules/Slider', 'modules/VideoOverlay', 'modules/ContentInAccordion', 'modules/TabsWithContent'], function (Slider, VideoOverlay, ContentInAccordion, TabsWithContent) {
+  return CardsWithIcon;
+});
+require(['modules/Slider', 'modules/VideoOverlay', 'modules/ContentInAccordion', 'modules/TabsWithContent', 'modules/CardsWithIcon'], function (Slider, VideoOverlay, ContentInAccordion, TabsWithContent, CardsWithIcon) {
 
   Slider.addHandler(Slider.initSlider());
   VideoOverlay.init();
   ContentInAccordion.init();
   TabsWithContent.init();
+  CardsWithIcon.init();
 });
 
 // import Queue from './modules/Queue';
