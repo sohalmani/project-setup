@@ -1,0 +1,29 @@
+.panel {
+  background-color: $white;
+
+  &__heading {
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border-top: 2px solid $black;
+    border-bottom: 2px solid $black;
+
+    h4 {
+      max-width: calc(100% - 20px);
+    }
+  }
+
+  &__body {
+    display: none;
+  }
+
+  .collapse-btn {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background: url('/dist/images/icons/down-arrow.svg') no-repeat center;
+    background-size: contains;
+  }
+}

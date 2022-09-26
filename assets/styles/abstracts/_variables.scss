@@ -1,0 +1,103 @@
+//* Base colors
+$white: #fff;
+$black: #000;
+$dusk-blue: #1d5373;
+$soft-blue: #62b8e7;
+$purpley-pink: #c3c;
+$flat-blue: #3080a4;
+$purple: #660e99;
+$whitish-grey: #e5e5e5;
+$greenish-teal: #33b59f;
+$dark-slate-blue: #0f273f;
+$muted-blue: #2e7a9c;
+$aqua-marine: #26d7db;
+$aqua-teal-marine: #2ee8d9;
+$dark-navy: #04113e;
+$midnight-blue: #000033;
+$purpleish-pink: #e344b9;
+$vivid-purple: #9000ff;
+$purple-blue: #7029fd;
+$steel-grey: #747e82;
+$light-grey: #f2f2f2;
+$violet: #ac1cf2;
+$medium-orchid: #c642a3;
+$royal-fuchsia: #bc3b9a;
+$sea: #32a6a8;
+$magenta: #d50095;
+$dark-grey: #2b3337;
+$dark-purple: #609;
+$turquoise: #2eccdc;
+
+$colors: (
+  'white',
+  $white,
+  'black',
+  $black,
+  'dusk-blue',
+  $dusk-blue,
+  'soft-blue',
+  $soft-blue,
+  'flat-blue',
+  $flat-blue,
+  'purple',
+  $purple,
+  'purpleish-pink',
+  $purpleish-pink,
+  'dark-navy',
+  $dark-navy,
+  'dark-slate-blue',
+  $dark-slate-blue,
+  'aqua-marine',
+  $aqua-marine,
+  'soft-blue',
+  $soft-blue,
+  'purple-blue',
+  $purple-blue,
+  'whitish-grey',
+  $whitish-grey,
+  'grey',
+  $steel-grey,
+  'light-grey',
+  $light-grey,
+  'violet',
+  $violet,
+  'dark-grey',
+  $dark-grey,
+  'purpley-pink',
+  $purpley-pink,
+  'greenish-teal',
+  $greenish-teal,
+  'dark-purple',
+  $dark-purple,
+  'turquoise',
+  $turquoise
+);
+
+$font-family-redhatdisplay: 'Red Hat Display', sans-serif;
+
+$border-radius-primary: 8px;
+
+//*  Media query variables
+$phone-width: 481px;
+$phablet-width: 596px;
+$tablet-width: 768px;
+$desktop-width: 992px;
+$desktop-mid-width: 1024px;
+$laptop-width: 1450px;
+$laptop-small-width: 1366px;
+$psd-width: 1600px;
+$container-width: 1200px;
+$container-large-width: 1280px;
+$orientation: landscape;
+$ultra-large-screen: 1920px;
+
+//*  New Media query variables
+$new-widescreen-width: 2400px;
+$new-desktop-width: 1200px;
+$new-tablet-width: 1024px;
+$new-phablet-width: 767px;
+$new-mobile-width: 414px;
+
+$spacing-lg: 384px;
+$spacing-md: 192px;
+$spacing-sm: 128px;

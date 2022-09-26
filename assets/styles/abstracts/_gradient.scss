@@ -1,0 +1,26 @@
+@import '../abstracts/variables';
+
+//** Gradient placeholders
+%gradient-blue-teal-marine {
+  background: linear-gradient(to right, $muted-blue, $soft-blue 39%, $aqua-teal-marine);
+}
+
+%gradient-purpley-blue {
+  background: linear-gradient(to right, $purpley-pink, $soft-blue);
+}
+
+%gradient-pink-purple {
+  background: linear-gradient(to right, $purpley-pink, $purple);
+}
+
+/** Other Gradients */
+%gradient-dark-slate-blue {
+  background: linear-gradient(to left, $dark-slate-blue 100%, $dark-slate-blue 54%, rgba($dark-slate-blue, 0) 0%);
+};
+
+%gradient-magenta-blue {
+  background-image: linear-gradient(to right, $magenta 0%, $soft-blue 99%);
+}
+%gradient-aqua-marine-pink {
+  background-image: linear-gradient(to bottom, $aqua-marine, $turquoise 48%, $violet 156%)
+}

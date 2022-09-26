@@ -1,0 +1,292 @@
+/* Fonts */
+
+$font-family-redhatdisplay: 'Red Hat Display', sans-serif;
+
+// Red Hat Display Font
+@font-face {
+  font-family: RedHatDisplay;
+  src: local(RedHatDisplay-Regular), url(../fonts/RedHatDisplay-Regular.woff) format('woff'),
+    url(../fonts/RedHatDisplay-Regular.ttf) format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  font-display: auto;
+}
+
+@font-face {
+  font-family: RedHatDisplay;
+  src: local(RedHatDisplay-Medium), url(../fonts/RedHatDisplay-Medium.woff) format('woff'),
+    url(../fonts/RedHatDisplay-Medium.ttf) format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-stretch: normal;
+  font-display: auto;
+}
+
+@font-face {
+  font-family: RedHatDisplay;
+  src: local(RedHatDisplay-Bold), url(../fonts/RedHatDisplay-Bold.woff) format('woff'),
+    url(../fonts/RedHatDisplay-Bold.ttf) format('truetype');
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  font-display: auto;
+}
+
+h1 {
+  font-family: $font-family-redhatdisplay;
+  font-size: 62px;
+  font-weight: bold;
+  line-height: 1.13;
+  letter-spacing: normal;
+  @include desktop {
+    font-size: 56px;
+  }
+  @include desktop-small {
+    font-size: 48px;
+  }
+  @include new-tablet {
+    font-size: 48px;
+  }
+  @include phablet {
+    font-size: 40px;
+  }
+  @include phablet-down {
+    font-size: 32px;
+  }
+}
+
+h2 {
+  font-family: $font-family-redhatdisplay;
+  font-size: 56px;
+  font-weight: 500;
+  line-height: 1.13;
+  letter-spacing: normal;
+  @include desktop {
+    font-size: 48px;
+  }
+  @include desktop-small {
+    font-size: 40px;
+  }
+  @include new-tablet {
+    font-size: 40px;
+  }
+  @include phablet {
+    font-size: 32px;
+  }
+  @include phablet-down {
+    font-size: 24px;
+  }
+}
+
+h3 {
+  font-family: $font-family-redhatdisplay;
+  font-size: 50px;
+  font-weight: 500;
+  line-height: 1.12;
+  letter-spacing: normal;
+  @include desktop {
+    font-size: 44px;
+  }
+  @include desktop-small {
+    font-size: 38px;
+  }
+  @include new-tablet {
+    font-size: 38px;
+  }
+  @include phablet {
+    font-size: 32px;
+  }
+  @include phablet-down {
+    font-size: 26px;
+  }
+}
+
+h4 {
+  font-size: 40px;
+  font-weight: normal;
+  font-family: $font-family-redhatdisplay;
+  line-height: 1.25;
+  letter-spacing: normal;
+  @include desktop {
+    font-size: 36px;
+  }
+  @include desktop-small {
+    font-size: 32px;
+  }
+  @include new-tablet {
+    font-size: 32px;
+  }
+  @include phablet {
+    font-size: 28px;
+  }
+  @include phablet-down {
+    font-size: 24px;
+  }
+}
+
+h5 {
+  font-family: $font-family-redhatdisplay;
+  font-size: 32px;
+  font-weight: bold;
+  line-height: 1.25;
+  letter-spacing: normal;
+  @include desktop {
+    font-size: 28px;
+  }
+  @include desktop-small {
+    font-size: 24px;
+  }
+  @include new-tablet {
+    font-size: 24px;
+  }
+  @include phablet {
+    font-size: 20px;
+  }
+  @include phablet-down {
+    font-size: 16px;
+  }
+}
+
+h6 {
+  font-family: $font-family-redhatdisplay;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: normal;
+  @include desktop {
+    font-size: 22px;
+  }
+  @include desktop-small {
+    font-size: 20px;
+  }
+  @include new-tablet {
+    font-size: 20px;
+  }
+  @include phablet {
+    font-size: 18px;
+  }
+  @include phablet-down {
+    font-size: 16px;
+  }
+}
+
+blockquote {
+  font-family: $font-family-redhatdisplay;
+  font-size: 32px;
+  font-weight: bold;
+  line-height: 1.25;
+  letter-spacing: normal;
+  position: relative;
+  margin: 57px 0 ;
+  @include desktop-small {
+    font-size: 28px;
+    margin: 45px 0;
+  }
+  @include ipad-pro {
+    font-size: 26px;
+    margin: 40px 0 30px;
+  }
+  @include tablet {
+    font-size: 24px;
+    margin: 35px 0 25px;
+  }
+  @include phablet {
+    font-size: 20px;
+    margin: 30px 0 25px;
+  }
+  @include phablet-down {
+    font-size: 16px;
+    margin: 30px 0 25px;
+  }
+  &:after {
+    content: '';
+    position: absolute;
+    width: 92px;
+    height: 65px;
+    background-image: url(../images/icons/quotation_mark.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    left: -2px;
+    top: -36px;
+    z-index: -1;
+    @include desktop-small {
+      width: 72px;
+      height: 50px;
+      top: -28px;
+      left: -7px;
+    }
+    @include ipad-pro {
+      width: 60px;
+      height: 50px;
+      top: -23px;
+    }
+    @include tablet {
+      width: 60px;
+      height: 43px;
+      top: -25px;
+    }
+    @include phablet {
+      width: 50px;
+      height: 43px;
+      top: -18px;
+    }
+    @include phablet-down {
+      width: 50px;
+      height: 43px;
+      top: -18px;
+    }
+
+  }
+}
+
+p {
+  font-family: $font-family-redhatdisplay;
+  font-size: 20px;
+  font-weight: normal;
+  line-height: 1.5;
+  letter-spacing: normal;
+  @include phablet {
+    font-size: 16px;
+  }
+  @include new-tablet {
+    font-size: 16px;
+  }
+  @include phablet-down {
+    font-size: 14px;
+  }
+
+  small {
+    font-size: 16px;
+    line-height: 1.5;
+    @include phablet-down {
+      font-size: 14px;
+    }
+  }
+}
+
+span {
+  font-family: $font-family-redhatdisplay;
+  font-size: 16px;
+  font-weight: bold;
+  line-height: normal;
+  letter-spacing: 1.6px;
+  @include tablet-down {
+    font-size: 14px;
+  }
+}
+
+a {
+  cursor: pointer;
+  font-family: $font-family-redhatdisplay;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: 1.4px;
+  text-decoration: none;
+  outline: 0;
+  &:hover {
+    outline: 0;
+    text-decoration: none;
+  }
+}

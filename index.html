@@ -1,19 +1,271 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Automated Workflow with Gulp</title>
-  <link rel="stylesheet" href="./dist/styles/plugins.css">
-  <link rel="stylesheet" href="./dist/styles/main.css">
-  <script src="./bower_components/requirejs/require.js" defer></script>
-  <script src="./dist/scripts/jquery.js" defer></script>
-  <script src="./dist/scripts/plugins.js" defer></script>
-  <script src="./dist/scripts/main.js" defer></script>
-</head>
-<body>
-  <h1>Hello there!</h1>
-  <h2>Let's Gulp the sweet juice..</h2>
-</body>
+
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automated Workflow with Gulp</title>
+    <link rel="stylesheet" href="./dist/styles/global.css">
+    <link rel="stylesheet" href="./dist/styles/main.css">
+    <script src="./dist/scripts/global.js" defer></script>
+    <script src="./bower_components/requirejs/require.js" defer></script>
+    <script src="./dist/scripts/main.js" defer></script>
+  </head>
+
+  <body>
+    <header>
+      <div class="nav">
+        <div class="container">
+          <div class="row">
+            <div class="nav__logo">
+              <img src="/dist/images/logo/logo.png" alt="Logo" />
+            </div>
+            <div class="nav__items">
+              <ul>
+                <li>Link One</li>
+                <li>Link Two</li>
+                <li>Link Three</li>
+                <li>Link four</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <section class="banner-hero">
+      <div class="container">
+        <div class="row">
+          <div class="col-two">
+            <div class="banner-hero__content">
+              <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque repellat consequatur quae reiciendis hic! Harum alias eni</h1>
+              <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Magnam aspernatur laboriosam, alias quae temporibus aut neque dolorum fuga accusantium maiores necessitatibus tenetur veritatis consequatur rem vitae velit cum! Illo, est?</p>
+              <div class="banner-hero__action">
+                <a href="/" class="btn-primary">Get Started</a>
+                <a href="/" class="btn-primary">Learn More</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-two">
+            <div class="banner-hero__img">
+              <img src="/dist/images/banner-hero/coding-img.jpg" alt="Banner-img" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section>
+      <div class="container">
+        <h1>Hello there!</h1>
+        <h2>Let's Gulp the sweet juice..</h2>
+      </div>
+    </section>
+    <section class="col-two-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-two">
+            <div class="col-two-img__content">
+              <h3>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolorem, sed reiciendis corrupti voluptas sunt quidem at!</h3>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates recusandae earum beatae doloribus ducimus exercitationem molestiae, maxime sequi. Praesentium hic consequuntur beatae consectetur? Animi beatae cupiditate facere amet explicabo doloribus?
+              </p>
+              <div class="col-two-img__action">
+                <a href="/" class="btn-primary">Learn More</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-two">
+            <div class="col-two-img__media">
+              <a class="video-play-button" href="https://www.youtube.com/watch?v=9LbBUn-kwoI" target="_blank">
+                <span class="play-button-row"> <span class="play-button"></span>
+                  <span class="play-button-content">Watch video from ceo</span>
+                </span>
+              </a>
+              <img src="/dist/images/banner-hero/coding-img.jpg" alt="placeholder-img" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="content-in-accordion">
+      <div class="container">
+        <div class="panel-group" role="tablist">
+          <div class="panel">
+            <div class="panel__heading" role="tab">
+              <h4 class="panel__title">
+                Collapsible Group Item #1
+              </h4>
+              <span class="collapse-btn" aria-label="collapse-btn"></span>
+            </div>
+            <div class="panel__collapse" role="tabpanel">
+              <div class="panel__body">
+                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird
+                on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table,
+                raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+              </div>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="panel__heading" role="tab">
+              <h4 class="panel__title">
+                Collapsible Group Item #2
+              </h4>
+              <span class="collapse-btn" aria-label="collapse-btn"></span>
+            </div>
+            <div class="panel__collapse" role="tabpanel">
+              <div class="panel__body">
+                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird
+                on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table,
+                raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+              </div>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="panel__heading" role="tab">
+              <h4 class="panel__title">
+                Collapsible Group Item #3
+              </h4>
+              <span class="collapse-btn" aria-label="collapse-btn"></span>
+            </div>
+            <div class="panel__collapse collapse" role="tabpanel">
+              <div class="panel__body">
+                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird
+                on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table,
+                raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="cards-with-icon bg-white">
+      <div class="container">
+        <div class="section-heading">
+          <h3>Headline about the Benefits</h3>
+        </div>
+        <div class="cards">
+          <div class="row">
+            <div class="col-three">
+              <div class="card">
+                <div class="card__icon">
+                  <img src="/dist/images/icons/computer-icon.svg" alt="Card-icon">
+                </div>
+                <div class="card__content">
+                  <h5 class="card__title">Lorem ipsum dolor sit amet consectetamet consecteturLorem ipsum dolor sit amet consectetur</h5>
+                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci aperiam eum, repellat non, quam eaque facere enim Lorem , sequi quaerat magnam modi molestiae eligendi dolor? Repellendus, iure dolore?</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-three">
+              <div class="card">
+                <div class="card__icon">
+                  <img src="/dist/images/icons/computer-icon.svg" alt="Card-icon">
+                </div>
+                <div class="card__content">
+                  <h5 class="card__title">Lorem ipsum dolor sit amet consectetur</h5>
+                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci aperiam eum, repellat non, quam eaque facere enim officiis odio incidunt, sequi quaerat magnam modi molestiae eligendi dolor? Repellendus, iure dolore?</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-three">
+              <div class="card">
+                <div class="card__icon">
+                  <img src="/dist/images/icons/computer-icon.svg" alt="Card-icon">
+                </div>
+                <div class="card__content">
+                  <h5 class="card__title">Lorem ipsum dolor sit amet consectetur</h5>
+                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci aperiam eum, repellat non, quam eaque facere enim officiis odio incidunt, sequi quaerat magnam modi molestiae eligendi dolor? Repellendus, iure dolore?</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="tabs-with-content">
+      <div class="container">
+        <div class="tabs">
+          <ul class="tabs__nav">
+            <li><span data-tab="tab1">Bob</span></li>
+            <li><span>Dante</span></li>
+            <li><span>Randall</span></li>
+            <li><span>Jay</span></li>
+          </ul>
+          <div class="tabs__content">
+            <div data-id="tab1" class="tab-content">
+              <div class="content-wrap">
+                <h2>Silent Bob</h2>
+                <p>"You know, there's a million fine looking women in the world, dude. But they don't all bring you lasagna at work. Most of 'em just cheat on you. You know, there's a million fine looking women in the world, dude. But they don't all bring you lasagna at work. Most of 'em just cheat on you.You know, there's a million fine looking women in the world, dude. But they don't all bring you lasagna at work. Most of 'em just cheat on you.You know, there's a million fine looking women in the world, dude. But they don't all bring you lasagna at work. Most of 'em just cheat on you.You know, there's a million fine looking women in the world, dude. But they don't all bring you lasagna at work. Most of 'em just cheat on you.
+                  "</p>
+              </div>
+            </div>
+            <div class="tab-content">
+              <div class="content-wrap">
+                <h2>Dante Hicks</h2>
+                <p>"My friend here's trying to convince me that any independent contractors who were working on the uncompleted Death Star were innocent victims when it was destroyed by the Rebels."</p>
+              </div>
+            </div>
+            <div class="tab-content">
+              <h2>Randall Graves</h2>
+              <p>"In light of this lurid tale, I don't even see how you can romanticize your relationship with Caitlin. She broke your heart and inadvertently drove men to deviant lifestyles."</p>
+            </div>
+            <div class="tab-content">
+              <h2>Jay</h2>
+              <p>"I don't care if she's my cousin or not, I'm gonna knock those boots again tonight."</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="testimonial">
+      <div class="container">
+        <div class="testimonial__items">
+          <div class="testimonial-card">
+            <div class="testimonial-card__logo">
+              <img src="/dist/images/logo/placeholder-logo.jpg" alt="testimonial-card-logo" />
+            </div>
+            <div class="testimonial-card__content">
+              <h3>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum accusamus aperiam eligendi veniam voluptatem ab tempora at maxime ducimus iste modi dolorem id iure nulla, quod pariatur quia fugiat animi.</h3>
+            </div>
+          </div>
+          <div class="testimonial-card">
+            <div class="testimonial-card__logo">
+              <img src="/dist/images/logo/placeholder-logo.jpg" alt="testimonial-card-logo" />
+            </div>
+            <div class="testimonial-card__content">
+              <h3>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum accusamus aperiam eligendi veniam voluptatem ab tempora at maxime ducimus iste modi dolorem id iure nulla, quod pariatur quia fugiat animi.</h3>
+            </div>
+          </div>
+          <div class="testimonial-card">
+            <div class="testimonial-card__logo">
+              <img src="/dist/images/logo/placeholder-logo.jpg" alt="testimonial-card-logo" />
+            </div>
+            <div class="testimonial-card__content">
+              <h3>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum accusamus aperiam eligendi veniam voluptatem ab tempora at maxime ducimus iste modi dolorem id iure nulla, quod pariatur quia fugiat animi.</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <footer>
+      <div class="footer">
+        <div class="container">
+          <div class="row">
+            <div class="footer__logo">
+              <img src="./dist/images/logo/logo.png" alt="Logo" />
+            </div>
+            <p>2022 &#169; Copyright. All right reserved</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <section class="video-overlay">
+      <div class="container">
+        <div class="video-wrap">
+          <iframe allowfullscreen allow="autoplay"></iframe>
+          <span class="close"></span>
+        </div>
+      </div>
+    </section>
+  </body>
+
 </html>

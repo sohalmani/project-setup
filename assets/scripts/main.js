@@ -1,7 +1,12 @@
-require(['modules/Car'], function(Car) {
-  const car = new Car();
-  console.log(car.getOwner());
+require(['modules/Slider', 'modules/VideoOverlay', 'modules/ContentInAccordion', 'modules/TabsWithContent', 'modules/CardsWithIcon'], function(Slider, VideoOverlay, ContentInAccordion, TabsWithContent, CardsWithIcon) {
+
+  Slider.addHandler(Slider.initSlider())
+  VideoOverlay.init();
+  ContentInAccordion.init();
+  TabsWithContent.init();
+  CardsWithIcon.init();
  });
+
 
 // import Queue from './modules/Queue';
 // import Stack from './modules/Stack';

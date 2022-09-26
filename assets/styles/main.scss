@@ -1,3 +1,17 @@
+
+// Components
+@import 'abstracts/variables.scss';
+@import 'abstracts/media-queries.scss';
+@import 'abstracts/mixins.scss';
+@import './components/testimonial-card.scss';
+
 @import  './sections/archives';
 @import  './sections/blogdetail';
 @import  './sections/bloggrid';
+@import './sections/banner-hero.scss';
+
+@import './sections/testimonial.scss';
+@import './sections/col-two-img.scss';
+@import './sections/cards-with-icon.scss';
+@import './sections/content-in-accordion.scss';
+@import './sections/tabs-with-content.scss';

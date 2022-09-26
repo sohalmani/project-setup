@@ -1,0 +1,10 @@
+.testimonial {
+  $self: &;
+  position: relative;
+
+  &__items {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+  }
+}

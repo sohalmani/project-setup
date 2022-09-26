@@ -1,0 +1,22 @@
+.col-two-img {
+  &__content {
+    padding-right: 30px;
+  }
+  &__action {
+    margin-top: 25px;
+  }
+  &__media {
+    position: relative;
+    max-height: 500px;
+
+    .play-button {
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    img {
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+}

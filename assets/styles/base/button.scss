@@ -1,0 +1,49 @@
+@import '../abstracts/variables';
+@import '../abstracts/button';
+
+//** Play-button
+.play-button {
+  cursor: pointer;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  overflow: hidden;
+  position: absolute;
+  background: url(/dist/images/icons/play-icon.svg) no-repeat center;
+  background-size: contain;
+  display: inline-block;
+  transition: background 0.3s ease-in-out;
+  &:hover {
+    background-image: url(/dist/images/icons/outlined-play-icon.svg);
+  }
+  @include tablet {
+    width: 60px;
+    height: 60px;
+  }
+  @include phablet-down {
+    width: 36px;
+    height: 36px;
+  }
+}
+
+//** Slick Arrow
+.slick-arrow {
+  &.slick-prev {
+    @extend%slick-arrow;
+    background: url(/dist/images/icons/slider-prev-arrow.png) no-repeat;
+    background-position: center;
+    background-size: 100%;
+    left: -15px;
+  }
+  &.slick-next {
+    @extend%slick-arrow;
+    background: url(/dist/images/icons/slider-next-arrow.svg) no-repeat;
+    background-position: center;
+    background-size: 100%;
+    right: -15px;
+  }
+  &.slick-disabled {
+    pointer-events: none;
+    opacity: 0.6;
+  }
+}
