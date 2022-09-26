@@ -5,9 +5,9 @@
         "styles/main.scss"
       ]
     },
-    "plugins.css": {
-      "vendor": [
-        "assets/styles/plugins/*.scss"
+    "global.css": {
+      "files": [
+        "styles/global.scss"
       ]
     },
     "main.js": {
@@ -15,12 +15,10 @@
         "scripts/main.js"
       ]
     },
-    "plugins.js": {
+    "global.js": {
       "vendor": [
         "assets/scripts/plugins/*.js"
-      ]
-    },
-    "jquery.js": {
+      ],
       "bower": ["jquery"]
     }
   },
