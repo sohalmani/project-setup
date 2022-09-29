@@ -35,7 +35,12 @@ var gap = require('gulp-append-prepend');
 var color = require('gulp-color');
 var babel = require('gulp-babel');
 var terser = require('gulp-terser');
-var rjs = require('gulp-requirejs-optimize');
+var path = require('path');
+var filter = require('gulp-filter');
+var named = require('vinyl-named');	
+var webpack = require('webpack');
+var gulpWebpack = require('webpack-stream');
+var webpackOrig = require('webpack');
 
 /**
  * Notice for user
@@ -60,11 +65,11 @@ if (noticeEnabled) {
  * Core Gulp variables
  */
 var manifest = require('asset-builder')(manifestLocation);
-var path = manifest.paths; // Paths to folders like source and dist
+var paths = manifest.paths; // Paths to folders like source and dist
 var config = manifest.config || {}; // Custom config from manifest
 var globs = manifest.globs; // Globs for all assets (ex: js, css, fonts...)
 var project = manifest.getProjectGlobs(); // Paths to assets
-var revManifest = path.dist + 'manifest.json'; // Path to compiled assets
+var revManifest = paths.dist + 'manifest.json'; // Path to compiled assets
                                                // manifest
 
 /**
@@ -114,7 +119,7 @@ var cssPipeline = function (filename) {
         return gulpif('*.scss', sass({
           outputStyle: 'compressed',
           precision: 10,
-          includePaths: ['.', path.source],
+          includePaths: ['.', paths.source],
           errLogToConsole: !enabled.failStyleTask
         }));
       })
@@ -146,61 +151,69 @@ var cssPipeline = function (filename) {
  * Used to process script assets into compiled assets
  */
 var jsPipeline = function (filename) {
-  var isProjectGlob = function (vinyl) {
-    var isVinylFileInProjectGlobs = false;
-    
-    isVinylFileInProjectGlobs = project.js.every(function (glob) {
-      if (!!glob.includes(vinyl.relative.replace(/^..\//,""))) {
-        return true;
-      }
-    });
-    
-    return isVinylFileInProjectGlobs;
-  };
+  var f = filter(project.js, { restore: true });
 
-  return lazypipe()
+  return (
+    lazypipe()
       .pipe(function () {
         return gulpif(enabled.maps, sourcemaps.init());
       })
-      .pipe(function () {
-        return gulpif(isProjectGlob, rjs({
-          baseUrl: path.source + "/scripts",
-          name: filename.toString().split('.')[0],
-          out: filename.toString(),
-          optimize: "none",
-          // generateSourceMaps: true,
-          // preserveLicenseComments: false,
-          // useSourceUrl: true,
-        }))
+      .pipe(function() {
+        return f;
       })
-      .pipe(function () {
-        return gulpif(isProjectGlob, babel({
-          presets: [['env', {
-            "targets": {
-              "chrome": "58",
-              "ie": "10"
+      .pipe(named)
+      .pipe(gulpWebpack, {
+        module: {
+          loaders: [
+            {
+              loader: 'babel',
+              test: /\.jsx?$/,
+              exclude: /(node_modules|bower_components)/,
+              query: {
+                presets: [['env', {
+                  "targets": {
+                    "chrome": "58",
+                    "ie": "10"
+                  }
+                }]],
+              }
             }
-          }]]
-        }))
+          ]
+        },
+        output: {
+          filename: '[name].js',
+          sourceMapFilename: '[name].js.map',
+        },
+        plugins: [
+          new webpack.optimize.LimitChunkCountPlugin({
+            maxChunks: 1
+          }),
+          new webpack.optimize.UglifyJsPlugin({
+            // include: /\.min\.js$/,
+            // minimize: true
+          })
+        ],
+        resolve: {
+          root: path.resolve(paths.source + 'scripts/'),
+          extensions: ['', '.js']
+        }
+      })
+      .pipe(function() {
+        return f.restore;
       })
       .pipe(concat, filename)
-      .pipe(function () {
-        return gulpif(config.minify && isProjectGlob, uglify());
-      })
-      // .pipe(function () {	
-      //   return gulpif(config.minify && isProjectGlob, terser({
-      //     mangle: false,
-      //     compress: false
-      //   }));	
-      // })
       .pipe(function () {
         return gulpif(enabled.rev, rev());
       })
       .pipe(function () {
-        return gulpif(enabled.maps, sourcemaps.write('.', {
-          sourceRoot: 'assets/scripts/'
-        }));
-      })();
+        return gulpif(
+          enabled.maps,
+          sourcemaps.write('.', {
+            sourceRoot: paths.source + 'scripts/',
+          })
+        );
+      })()
+  );
 };
 
 /**
@@ -212,13 +225,13 @@ var jsPipeline = function (filename) {
 var writeToManifest = function (directory) {
   //console.log("Writing to manifest "+directory+" at "+path.dist);
   return lazypipe()
-      .pipe(gulp.dest, path.dist + directory)
-      .pipe(browserSync.stream, {match: path.dist + '**/*.{js,css}'})
+      .pipe(gulp.dest, paths.dist + directory)
+      .pipe(browserSync.stream, {match: paths.dist + '**/*.{js,css}'})
       .pipe(rev.manifest, revManifest, {
-        base: path.dist,
+        base: paths.dist,
         merge: true
       })
-      .pipe(gulp.dest, path.dist)();
+      .pipe(gulp.dest, paths.dist)();
 };
 
 /**
@@ -285,7 +298,7 @@ gulp.task('scripts', function () {
 gulp.task('fonts', function () {
   return gulp.src(globs.fonts)
       .pipe(flatten())
-      .pipe(gulp.dest(path.dist + 'fonts'))
+      .pipe(gulp.dest(paths.dist + 'fonts'))
       .pipe(browserSync.stream());
 });
 
@@ -294,7 +307,7 @@ gulp.task('fonts', function () {
  *
  * Deletes entire compiled code folder
  */
-gulp.task('clean', require('del').bind(null, [path.dist]));
+gulp.task('clean', require('del').bind(null, [paths.dist]));
 
 /**
  * Watch task
@@ -306,7 +319,7 @@ gulp.task('clean', require('del').bind(null, [path.dist]));
 gulp.task('watch', function () {
   // Set up BrowserSync
   browserSync.init({
-    files: ['**/*.php', '*.php', path.dist + '**/*.{js,css}'],
+    files: ['**/*.php', '*.php', paths.dist + '**/*.{js,css}'],
     open: false,
     watchTask: true,
     proxy: config.devUrl,
@@ -319,9 +332,9 @@ gulp.task('watch', function () {
   });
 
   // Watch for file changes and run tbd
-  gulp.watch(path.source + 'styles/**/*.scss', ['styles']);
-  gulp.watch(path.source + 'scripts/**/*.js', ['scripts']);
-  gulp.watch([path.source + 'fonts/**/*'], ['fonts']);
+  gulp.watch(paths.source + 'styles/**/*.scss', ['styles']);
+  gulp.watch(paths.source + 'scripts/**/*.js', ['scripts']);
+  gulp.watch([paths.source + 'fonts/**/*'], ['fonts']);
   gulp.watch(['manifest.json'], ['build']);
   gulp.watch(['**/*.html'], ['build']);
   gulp.watch(['*.html'], ['build']);
@@ -350,7 +363,7 @@ gulp.task('images', function() {
         imagemin.gifsicle({interlaced: true}),
         imagemin.svgo({plugins: [{removeUnknownsAndDefaults: false}, {cleanupIDs: false}]})
       ]))
-      .pipe(gulp.dest(path.dist + 'images'))
+      .pipe(gulp.dest(paths.dist + 'images'))
       .pipe(browserSync.stream());
 });
 

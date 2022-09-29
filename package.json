@@ -27,6 +27,7 @@
     "asset-builder": "^1.1.0",
     "asset-builder-nobower": "^1.1.2",
     "babel-core": "^6.26.3",
+    "babel-loader": "^6.4.1",
     "babel-preset-env": "^1.7.0",
     "browser-sync": "^2.26.14",
     "del": "^3.0.0",
@@ -36,6 +37,7 @@
     "gulp-changed": "^3.1.1",
     "gulp-concat": "^2.6.1",
     "gulp-cssnano": "^2.1.2",
+    "gulp-filter": "^5.0.0",
     "gulp-flatten": "^0.3.1",
     "gulp-if": "^2.0.2",
     "gulp-imagemin": "^4.0.0",
@@ -56,9 +58,13 @@
     "lazypipe": "^1.0.1",
     "merge-stream": "^1.0.1",
     "minimist": "^1.2.5",
+    "path": "^0.12.7",
     "postcss-object-fit-images": "^1.1.2",
     "run-sequence": "^2.2.0",
     "traverse": "^0.6.6",
+    "vinyl-named": "^1.1.0",
+    "webpack": "^1.15.0",
+    "webpack-stream": "^3.2.0",
     "wiredep": "^4.0.0"
   }
 }

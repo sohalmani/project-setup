@@ -15,6 +15,11 @@
         "scripts/main.js"
       ]
     },
+    "index.js": {
+      "files": [
+        "scripts/index.js"
+      ]
+    },
     "global.js": {
       "vendor": [
         "assets/scripts/plugins/*.js"
