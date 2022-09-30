@@ -35,11 +35,12 @@ var gap = require('gulp-append-prepend');
 var color = require('gulp-color');
 var babel = require('gulp-babel');
 var terser = require('gulp-terser');
-var path = require('path');
 var presuf = require('presuf');
-var named = require('vinyl-named');	
-var webpack = require('webpack');
-var gulpWebpack = require('webpack-stream');
+var betterRollup = require('gulp-better-rollup');
+var rollUpNodeResolve = require('rollup-plugin-node-resolve');
+var rollUpCommonjs = require('rollup-plugin-commonjs');
+var rollUpAmd = require('rollup-plugin-amd');
+var lookup = require('module-lookup-amd');
 
 /**
  * Notice for user
@@ -151,70 +152,67 @@ var cssPipeline = function (filename) {
  */
 var jsPipeline = function (filename) {
   return lazypipe()
-    .pipe(function () {
-      return gulpif(enabled.maps, sourcemaps.init());
-    })
-    .pipe(function () {
-      return gulpif(presuf.prefix(project.js, '../'), named());
-    })
-    .pipe(function () {
-      return gulpif(
-        presuf.prefix(project.js, '../'),
-        gulpWebpack({
-          module: {
-            loaders: [
-              {
-                loader: 'babel',
-                test: /\.jsx?$/,
-                exclude: /(node_modules|bower_components)/,
-                query: {
-                  presets: [
-                    [
-                      'env',
-                      {
-                        targets: {
-                          chrome: '58',
-                          ie: '10',
-                        },
-                      },
-                    ],
-                  ],
-                },
-              },
-            ],
-          },
-          output: {
-            filename: '[name].js',
-            sourceMapFilename: '[name].js.map',
-          },
-          plugins: [
-            new webpack.optimize.LimitChunkCountPlugin({
-              maxChunks: 1,
-            }),
-            new webpack.optimize.UglifyJsPlugin({
-              // include: /\.min\.js$/,
-              // minimize: true
-            }),
-          ],
-          resolve: {
-            root: path.resolve(paths.source + 'scripts/'),
-            extensions: ['', '.js'],
-          },
-        })
-      );
-    })
-    .pipe(concat, filename)
-    .pipe(function () {
-      return gulpif(enabled.rev, rev());
-    })
-    .pipe(function () {
-      return gulpif(
-        enabled.maps,
-        sourcemaps.write('.', {
-          sourceRoot: paths.source + 'scripts/',
-        })
-      );
-    })();
+      .pipe(function () {
+        return gulpif(enabled.maps, sourcemaps.init());
+      })
+      .pipe(function () {
+        return gulpif(
+          presuf.prefix(project.js, '../'),
+          betterRollup(
+            {
+              plugins: [
+                rollUpNodeResolve({
+                  browser: true,
+                  extensions: ['.js'],
+                  preferBuiltins: false,
+                }),
+                rollUpAmd({
+                  exclude: ['node_modules/**'],
+                  converter: {
+                    sourceMap: true,
+                  },
+                  rewire: function(moduleId, parentPath) {
+                    return lookup({
+                      partial: moduleId,
+                      filename: parentPath,
+                    });
+                  }
+                }),
+                rollUpCommonjs()
+              ],
+            },
+            {
+              format: 'iife',
+            }
+          )
+        );
+      })
+      .pipe(function () {
+        return gulpif(presuf.prefix(project.js, '../'), babel({
+          presets: [['env', {
+            "targets": {
+              "chrome": "58",
+              "ie": "10"
+            }
+          }]]
+        }))
+      })
+      .pipe(function () {
+        return gulpif(presuf.prefix(project.js, '../'), uglify({
+          output: { beautify: !config.minify, indent_level: 2 },
+          mangle: config.minify,
+          compress: config.minify
+        }));
+      })
+      .pipe(concat, filename)
+      .pipe(function () {
+        return gulpif(enabled.rev, rev());
+      })
+      .pipe(function () {
+        return gulpif(enabled.maps, sourcemaps.write('.', {
+          sourceRoot: 'assets/scripts/'
+        }));
+      })();
 };
 
 /**
