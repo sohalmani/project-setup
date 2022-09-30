@@ -36,11 +36,10 @@ var color = require('gulp-color');
 var babel = require('gulp-babel');
 var terser = require('gulp-terser');
 var path = require('path');
-var filter = require('gulp-filter');
+var presuf = require('presuf');
 var named = require('vinyl-named');	
 var webpack = require('webpack');
 var gulpWebpack = require('webpack-stream');
-var webpackOrig = require('webpack');
 
 /**
  * Notice for user
@@ -151,69 +150,71 @@ var cssPipeline = function (filename) {
  * Used to process script assets into compiled assets
  */
 var jsPipeline = function (filename) {
-  var f = filter(project.js, { restore: true });
-
-  return (
-    lazypipe()
-      .pipe(function () {
-        return gulpif(enabled.maps, sourcemaps.init());
-      })
-      .pipe(function() {
-        return f;
-      })
-      .pipe(named)
-      .pipe(gulpWebpack, {
-        module: {
-          loaders: [
-            {
-              loader: 'babel',
-              test: /\.jsx?$/,
-              exclude: /(node_modules|bower_components)/,
-              query: {
-                presets: [['env', {
-                  "targets": {
-                    "chrome": "58",
-                    "ie": "10"
-                  }
-                }]],
-              }
-            }
-          ]
-        },
-        output: {
-          filename: '[name].js',
-          sourceMapFilename: '[name].js.map',
-        },
-        plugins: [
-          new webpack.optimize.LimitChunkCountPlugin({
-            maxChunks: 1
-          }),
-          new webpack.optimize.UglifyJsPlugin({
-            // include: /\.min\.js$/,
-            // minimize: true
-          })
-        ],
-        resolve: {
-          root: path.resolve(paths.source + 'scripts/'),
-          extensions: ['', '.js']
-        }
-      })
-      .pipe(function() {
-        return f.restore;
-      })
-      .pipe(concat, filename)
-      .pipe(function () {
-        return gulpif(enabled.rev, rev());
-      })
-      .pipe(function () {
-        return gulpif(
-          enabled.maps,
-          sourcemaps.write('.', {
-            sourceRoot: paths.source + 'scripts/',
-          })
-        );
-      })()
-  );
+  return lazypipe()
+    .pipe(function () {
+      return gulpif(enabled.maps, sourcemaps.init());
+    })
+    .pipe(function () {
+      return gulpif(presuf.prefix(project.js, '../'), named());
+    })
+    .pipe(function () {
+      return gulpif(
+        presuf.prefix(project.js, '../'),
+        gulpWebpack({
+          module: {
+            loaders: [
+              {
+                loader: 'babel',
+                test: /\.jsx?$/,
+                exclude: /(node_modules|bower_components)/,
+                query: {
+                  presets: [
+                    [
+                      'env',
+                      {
+                        targets: {
+                          chrome: '58',
+                          ie: '10',
+                        },
+                      },
+                    ],
+                  ],
+                },
+              },
+            ],
+          },
+          output: {
+            filename: '[name].js',
+            sourceMapFilename: '[name].js.map',
+          },
+          plugins: [
+            new webpack.optimize.LimitChunkCountPlugin({
+              maxChunks: 1,
+            }),
+            new webpack.optimize.UglifyJsPlugin({
+              // include: /\.min\.js$/,
+              // minimize: true
+            }),
+          ],
+          resolve: {
+            root: path.resolve(paths.source + 'scripts/'),
+            extensions: ['', '.js'],
+          },
+        })
+      );
+    })
+    .pipe(concat, filename)
+    .pipe(function () {
+      return gulpif(enabled.rev, rev());
+    })
+    .pipe(function () {
+      return gulpif(
+        enabled.maps,
+        sourcemaps.write('.', {
+          sourceRoot: paths.source + 'scripts/',
+        })
+      );
+    })();
 };
 
 /**
