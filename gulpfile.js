@@ -126,24 +126,16 @@ var cssPipeline = function (filename) {
  * Used to process script assets into compiled assets
  */
 var jsPipeline = function (filename) {
-  var isProjectGlob = function (vinyl) {
-    var isVinylFileInProjectGlobs = false;
-    
-    isVinylFileInProjectGlobs = project.js.every(function (glob) {
-      if (!!glob.includes(vinyl.relative.replace(/^..\//,""))) {
-        return true;
-      }
-    });
-    
-    return isVinylFileInProjectGlobs;
-  };
+  var projectJs = project.js.map(function (fp) {
+    return '../' + fp;
+  });
 
   return lazypipe()
       .pipe(function () {
         return gulpif(enabled.maps, sourcemaps.init());
       })
       .pipe(function () {
-        return gulpif(isProjectGlob, rjs({
+        return gulpif(projectJs, rjs({
           baseUrl: path.source + "/scripts",
           name: filename.toString().split('.')[0],
           out: filename.toString(),
@@ -154,7 +146,7 @@ var jsPipeline = function (filename) {
         }))
       })
       .pipe(function () {
-        return gulpif(isProjectGlob, babel({
+        return gulpif(projectJs, babel({
           presets: [['env', {
             "targets": {
               "chrome": "58",
@@ -165,14 +157,14 @@ var jsPipeline = function (filename) {
       })
       .pipe(concat, filename)
       .pipe(function () {
-        return gulpif(config.minify && isProjectGlob, uglify());
+        return gulpif(projectJs, uglify({
+          mangle: false,
+          compress: false
+        }));
       })
-      // .pipe(function () {	
-      //   return gulpif(config.minify && isProjectGlob, terser({
-      //     mangle: false,
-      //     compress: false
-      //   }));	
-      // })
+      .pipe(function () {
+        return gulpif(projectJs, terser());
+      })
       .pipe(function () {
         return gulpif(enabled.rev, rev());
       })
