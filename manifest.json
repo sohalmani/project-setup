@@ -7,9 +7,9 @@
       "files": ["styles/global.scss"]
     },
     "main.js": {
-      "files": ["scripts/modules/*.js", "scripts/main.js"]
+      "files": ["scripts/modules/*.js"]
     },
-    "global.js": {
+    "plugins.js": {
       "files": ["scripts/plugins/*.js"]
     }
   },

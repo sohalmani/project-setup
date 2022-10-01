@@ -1,4 +1,4 @@
-define(function () {
+(function () {
   const ContentInAccordion = (function () {
     const $contentInAccordion = $('.content-in-accordion');
     const $panelGroup = $contentInAccordion.find('.panel-group');
@@ -29,4 +29,4 @@ define(function () {
   })();
 
   return ContentInAccordion;
-})
+})();

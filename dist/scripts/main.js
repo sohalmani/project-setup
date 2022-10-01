@@ -1,5 +1,5 @@
 
-define(function () {
+(function () {
   const CardsWithIcon = (function () {
     const $cardsBlade = $('.cards-with-icon');
     const $cardTitle = $('.cards-with-icon .card .card__title');
@@ -23,8 +23,8 @@ define(function () {
   })();
 
   return CardsWithIcon;
-});
-define(function () {
+})();
+(function () {
   const ContentInAccordion = (function () {
     const $contentInAccordion = $('.content-in-accordion');
     const $panelGroup = $contentInAccordion.find('.panel-group');
@@ -55,9 +55,9 @@ define(function () {
   })();
 
   return ContentInAccordion;
-})
+})();
 
-define(function() {
+(function() {
   const Slider = (function() {
     const $testimionial = $('.testimonial');
 
@@ -91,11 +91,11 @@ define(function() {
   })();
 
   return Slider;
-});
+})();
 
 
 
-define(function () {
+(function () {
   const TabsWithContent = (function () {
     const $tabsWithConetnt = $('.tabs-with-content');
     const $tabItem = $tabsWithConetnt.find('.tabs__nav li');
@@ -154,9 +154,9 @@ define(function () {
   })();
 
   return TabsWithContent;
-});
+})();
 
-define(function () {
+(function () {
   const VideoOverlay = (function () {
     const $playButton = $('.video-play-button');
     const $overlayElement = $('.video-overlay');
@@ -257,50 +257,6 @@ define(function () {
   })();
 
   return VideoOverlay;
-});
-
-require(['modules/Slider', 'modules/VideoOverlay', 'modules/ContentInAccordion', 'modules/TabsWithContent', 'modules/CardsWithIcon'], function(Slider, VideoOverlay, ContentInAccordion, TabsWithContent, CardsWithIcon) {
-
-  Slider.addHandler(Slider.initSlider())
-  VideoOverlay.init();
-  ContentInAccordion.init();
-  TabsWithContent.init();
-  CardsWithIcon.init();
-});
-
-
-// import Queue from './modules/Queue';
-// import Stack from './modules/Stack';
-
-// let queue = new Queue();
-// queue.enqueue(1);
-// queue.enqueue(2);
-// queue.enqueue(4);
-// queue.enqueue(8);
-// console.log(queue.items);
-
-// queue.dequeue();
-// console.log(queue.items);
-
-// console.log(queue.peek());
-
-// console.log(queue.isEmpty());
-
-// console.log(queue.size());
-
-// queue.clear();
-// console.log(queue.items);
-
-// let stack = new Stack();
-// stack.add(1);
-// stack.add(2);
-// stack.add(4);
-// stack.add(8);
-// console.log(stack.items);
-
-// stack.remove();
-// console.log(stack.items);
-
-// console.log(stack.peek());
+})();
 
 //# sourceMappingURL=main.js.map

@@ -1,4 +1,4 @@
-define(function () {
+(function () {
   const VideoOverlay = (function () {
     const $playButton = $('.video-play-button');
     const $overlayElement = $('.video-overlay');
@@ -99,4 +99,4 @@ define(function () {
   })();
 
   return VideoOverlay;
-});
+})();

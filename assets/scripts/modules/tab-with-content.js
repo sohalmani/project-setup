@@ -1,4 +1,4 @@
-define(function () {
+(function () {
   const TabsWithContent = (function () {
     const $tabsWithConetnt = $('.tabs-with-content');
     const $tabItem = $tabsWithConetnt.find('.tabs__nav li');
@@ -57,4 +57,4 @@ define(function () {
   })();
 
   return TabsWithContent;
-});
+})();

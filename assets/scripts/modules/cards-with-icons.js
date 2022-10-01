@@ -1,5 +1,5 @@
 
-define(function () {
+(function () {
   const CardsWithIcon = (function () {
     const $cardsBlade = $('.cards-with-icon');
     const $cardTitle = $('.cards-with-icon .card .card__title');
@@ -23,4 +23,4 @@ define(function () {
   })();
 
   return CardsWithIcon;
-});
+})();

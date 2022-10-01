@@ -1,4 +1,4 @@
-define(function() {
+(function() {
   const Slider = (function() {
     const $testimionial = $('.testimonial');
 
@@ -32,6 +32,6 @@ define(function() {
   })();
 
   return Slider;
-});
+})();
 
 
