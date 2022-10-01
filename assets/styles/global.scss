@@ -1,11 +1,12 @@
-@import 'base/reset.scss';
 @import 'abstracts/variables.scss';
 @import 'abstracts/media-queries.scss';
+@import 'base/reset.scss';
 @import 'base/grid.scss';
 @import 'base/default.scss';
 @import 'base/typography.scss';
 @import 'base/button';
 
+@import 'plugins/animate';
 @import 'plugins/slick';
 
 @import 'components/video-overlay.scss';

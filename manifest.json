@@ -6,8 +6,8 @@
       ]
     },
     "global.css": {
-      "files": [
-        "styles/global.scss"
+      "vendor": [
+        "assets/styles/global.scss"
       ]
     },
     "main.js": {

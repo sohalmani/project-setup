@@ -5,7 +5,7 @@ require(['modules/Slider', 'modules/VideoOverlay', 'modules/ContentInAccordion',
   ContentInAccordion.init();
   TabsWithContent.init();
   CardsWithIcon.init();
- });
+});
 
 
 // import Queue from './modules/Queue';
