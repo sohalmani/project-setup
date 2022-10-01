@@ -43,7 +43,7 @@ var rjs = require('gulp-requirejs-optimize');
 const noticeEnabled = true;
 if (noticeEnabled) {
   console.log('*******************************************************');
-  console.log('* Starter Local Setup Guide available here:           *');
+  console.log('* Starter Code Local Setup:                           *');
   console.log('*                                                     *');
   console.log('* If you have any issues, run these commands:         *');
   console.log('*   npm i -g npm    (until version stays the same)    *');
@@ -146,13 +146,32 @@ var cssPipeline = function (filename) {
  * Used to process script assets into compiled assets
  */
 var jsPipeline = function (filename) {
-  var isProjectGlob = project.js.every(function (glob) {
-    return glob.includes(filename);
-  });
+  var isProjectGlob = function (vinyl) {
+    var isVinylFileInProjectGlobs = false;
+    
+    isVinylFileInProjectGlobs = project.js.every(function (glob) {
+      if (!!glob.includes(vinyl.relative.replace(/^..\//,""))) {
+        return true;
+      }
+    });
+    
+    return isVinylFileInProjectGlobs;
+  };
 
   return lazypipe()
       .pipe(function () {
         return gulpif(enabled.maps, sourcemaps.init());
+      })
+      .pipe(function () {
+        return gulpif(isProjectGlob, rjs({
+          baseUrl: path.source + "/scripts",
+          name: filename.toString().split('.')[0],
+          out: filename.toString(),
+          optimize: "none",
+          // generateSourceMaps: true,
+          // preserveLicenseComments: false,
+          // useSourceUrl: true,
+        }))
       })
       .pipe(function () {
         return gulpif(isProjectGlob, babel({
@@ -162,17 +181,6 @@ var jsPipeline = function (filename) {
               "ie": "10"
             }
           }]]
-        }))
-      })
-      .pipe(function () {
-        return gulpif(isProjectGlob, rjs({
-          baseUrl: path.source + "/scripts",
-          name: filename.toString().split('.')[0],
-          out: filename.toString(),
-          // optimize: "uglify2",
-          // generateSourceMaps: true,
-          // preserveLicenseComments: false,
-          // useSourceUrl: true,
         }))
       })
       .pipe(concat, filename)
