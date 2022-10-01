@@ -38,25 +38,6 @@ var terser = require('gulp-terser');
 var rjs = require('gulp-requirejs-optimize');
 
 /**
- * Notice for user
- */
-const noticeEnabled = true;
-if (noticeEnabled) {
-  console.log('*******************************************************');
-  console.log('* Starter Code Local Setup:                           *');
-  console.log('*                                                     *');
-  console.log('* If you have any issues, run these commands:         *');
-  console.log('*   npm i -g npm    (until version stays the same)    *');
-  console.log('*   npm ci                                            *');
-  console.log('* If you still have issues, try this:                 *');
-  console.log('*   rm -rf node_modules                               *');
-  console.log('*   npm install                                       *');
-  console.log('* This is known to work with gulp 3.9.1 on npm 5.5.1  *');
-  console.log('*******************************************************');
-  console.log('You can run ' + color('gulp -T', 'GREEN') + ' for a list of available gulp commands');
-}
-
-/**
  * Core Gulp variables
  */
 var manifest = require('asset-builder')(manifestLocation);
@@ -75,11 +56,10 @@ var enabled = {
   rev: argv.production,
   // Disable source maps when `--production`
   maps: !argv.production,
-  //maps: false,
   // Fail styles task on error when `--production`
   failStyleTask: argv.production,
   // Fail due to JSHint warnings only when `--production`
-  //failJSHint: argv.production,
+  failJSHint: argv.production,
   // Strip debug statments from javascript when `--production`
   stripJSDebug: argv.production
 };
@@ -127,11 +107,11 @@ var cssPipeline = function (filename) {
         ]
       })
       .pipe(postcss, [require('postcss-object-fit-images')])
-      .pipe(function () {
-        return gulpif(config.minify, cssNano({
-          safe: true
-        }));
-      })
+      // .pipe(function () {
+      //   return gulpif(config.minify, cssNano({
+      //     safe: true
+      //   }));
+      // })
       .pipe(function () {
         return gulpif(enabled.rev, rev());
       })
@@ -210,7 +190,6 @@ var jsPipeline = function (filename) {
  * See https://github.com/sindresorhus/gulp-rev
  */
 var writeToManifest = function (directory) {
-  //console.log("Writing to manifest "+directory+" at "+path.dist);
   return lazypipe()
       .pipe(gulp.dest, path.dist + directory)
       .pipe(browserSync.stream, {match: path.dist + '**/*.{js,css}'})
@@ -238,7 +217,6 @@ gulp.task('styles', function () {
     }
     merged.add(gulp.src(dep.globs, {base: 'styles'})
         .pipe(plumber({errorHandler: onError}))
-        //.pipe(print())
         .pipe(cssPipelineInstance));
   });
   return merged
@@ -258,17 +236,14 @@ gulp.task('scripts', function () {
         // Sort plugins alphabetically
             .pipe(gulpif(dep.name.includes('plugins'), sort(function (a, b) {
               // Prioritize jQuery
-              //console.log(a.history[0]);
-              //console.log(b.history[0]);
-              if (a.history[0].includes('jquery')) {
+              if (a.history[0].includes('jquery.min')) {
                 return -1;
               }
-              if (b.history[0].includes('jquery')) {
+              if (b.history[0].includes('jquery.min')) {
                 return 1;
               }
               return a.history[0].localeCompare(b.history[0]);
             })))
-            //.pipe(print())
             .pipe(plumber({errorHandler: onError}))
             .pipe(jsPipeline(dep.name))
     );
