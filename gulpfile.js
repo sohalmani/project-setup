@@ -55,11 +55,10 @@ var enabled = {
   rev: argv.production,
   // Disable source maps when `--production`
   maps: !argv.production,
-  //maps: false,
   // Fail styles task on error when `--production`
   failStyleTask: argv.production,
   // Fail due to JSHint warnings only when `--production`
-  //failJSHint: argv.production,
+  failJSHint: argv.production,
   // Strip debug statments from javascript when `--production`
   stripJSDebug: argv.production
 };
@@ -107,11 +106,11 @@ var cssPipeline = function (filename) {
         ]
       })
       .pipe(postcss, [require('postcss-object-fit-images')])
-      .pipe(function () {
-        return gulpif(config.minify, cssNano({
-          safe: true
-        }));
-      })
+      // .pipe(function () {
+      //   return gulpif(config.minify, cssNano({
+      //     safe: true
+      //   }));
+      // })
       .pipe(function () {
         return gulpif(enabled.rev, rev());
       })
@@ -136,14 +135,6 @@ var jsPipeline = function (filename) {
       .pipe(function () {
         return gulpif(enabled.maps, sourcemaps.init());
       })
-      // .pipe(babel, {
-      //   presets: [['env', {
-      //     "targets": {
-      //       "chrome": "58",
-      //       "ie": "10"
-      //     }
-      //   }]]
-      // })
       .pipe(function () {
         return gulpif(!isPluginFile, babel({
           presets: [['env', {
@@ -161,7 +152,6 @@ var jsPipeline = function (filename) {
           compress: false
         }));
       })
-      // .pipe(terser)
       .pipe(function () {
         return gulpif(!isPluginFile, terser());
       })
@@ -182,7 +172,6 @@ var jsPipeline = function (filename) {
  * See https://github.com/sindresorhus/gulp-rev
  */
 var writeToManifest = function (directory) {
-  //console.log("Writing to manifest "+directory+" at "+path.dist);
   return lazypipe()
       .pipe(gulp.dest, path.dist + directory)
       .pipe(browserSync.stream, {match: path.dist + '**/*.{js,css}'})
@@ -210,7 +199,6 @@ gulp.task('styles', function () {
     }
     merged.add(gulp.src(dep.globs, {base: 'styles'})
         .pipe(plumber({errorHandler: onError}))
-        //.pipe(print())
         .pipe(cssPipelineInstance));
   });
   return merged
@@ -225,14 +213,11 @@ gulp.task('styles', function () {
 gulp.task('scripts', function () {
   var merged = merge();
   manifest.forEachDependency('js', function (dep) {
-    //console.log(dep.name);
     merged.add(
         gulp.src(dep.globs, {base: 'scripts'})
         // Sort plugins alphabetically
             .pipe(gulpif(dep.name.includes('plugins'), sort(function (a, b) {
               // Prioritize jQuery
-              //console.log(a.history[0]);
-              //console.log(b.history[0]);
               if (a.history[0].includes('jquery.min')) {
                 return -1;
               }
@@ -241,7 +226,6 @@ gulp.task('scripts', function () {
               }
               return a.history[0].localeCompare(b.history[0]);
             })))
-            //.pipe(print())
             .pipe(plumber({errorHandler: onError}))
             .pipe(jsPipeline(dep.name))
     );
