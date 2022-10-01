@@ -1,3 +1,22 @@
-define("modules/Person",{name:"John Doe"}),define("modules/Car",["./Person"],function(n){function e(){this.getOwner=function(){return"The owner is "+n.name}}return e}),require(["modules/Car"],function(n){const e=new n;console.log(e.getOwner())}),define("main",function(){});
+'use strict';
 
+define('modules/Person', {
+    name: "John Doe"
+});
+
+define('modules/Car', ["./Person"], function (Person) {
+    function Car() {
+        this.getOwner = function () {
+            return "The owner is " + Person.name;
+        };
+    }
+    return Car;
+});
+
+require(['modules/Car'], function (Car) {
+    var car = new Car();
+    console.log(car.getOwner());
+});
+
+define("main", function () {});
 //# sourceMappingURL=main.js.map
