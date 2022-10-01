@@ -168,9 +168,6 @@ var jsPipeline = function (filename) {
                 }),
                 rollUpAmd({
                   exclude: ['node_modules/**'],
-                  converter: {
-                    sourceMap: true,
-                  },
                   rewire: function(moduleId, parentPath) {
                     return lookup({
                       partial: moduleId,
