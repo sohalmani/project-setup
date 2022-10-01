@@ -1,25 +1,16 @@
 {
   "dependencies": {
     "main.css": {
-      "files": [
-        "styles/main.scss"
-      ]
+      "files": ["styles/main.scss"]
     },
     "global.css": {
-      "vendor": [
-        "assets/styles/global.scss"
-      ]
+      "files": ["styles/global.scss"]
     },
     "main.js": {
-      "files": [
-        "scripts/main.js"
-      ]
+      "files": ["scripts/modules/*.js", "scripts/main.js"]
     },
     "global.js": {
-      "vendor": [
-        "assets/scripts/plugins/*.js"
-      ],
-      "bower": ["jquery"]
+      "files": ["scripts/plugins/*.js"]
     }
   },
   "paths": {

@@ -35,31 +35,11 @@ var gap = require('gulp-append-prepend');
 var color = require('gulp-color');
 var babel = require('gulp-babel');
 var terser = require('gulp-terser');
-var rjs = require('gulp-requirejs-optimize');
-
-/**
- * Notice for user
- */
-const noticeEnabled = true;
-if (noticeEnabled) {
-  console.log('*******************************************************');
-  console.log('* Starter Code Local Setup:                           *');
-  console.log('*                                                     *');
-  console.log('* If you have any issues, run these commands:         *');
-  console.log('*   npm i -g npm    (until version stays the same)    *');
-  console.log('*   npm ci                                            *');
-  console.log('* If you still have issues, try this:                 *');
-  console.log('*   rm -rf node_modules                               *');
-  console.log('*   npm install                                       *');
-  console.log('* This is known to work with gulp 3.9.1 on npm 5.5.1  *');
-  console.log('*******************************************************');
-  console.log('You can run ' + color('gulp -T', 'GREEN') + ' for a list of available gulp commands');
-}
 
 /**
  * Core Gulp variables
  */
-var manifest = require('asset-builder')(manifestLocation);
+var manifest = require('asset-builder-nobower')(manifestLocation);
 var path = manifest.paths; // Paths to folders like source and dist
 var config = manifest.config || {}; // Custom config from manifest
 var globs = manifest.globs; // Globs for all assets (ex: js, css, fonts...)
@@ -146,35 +126,26 @@ var cssPipeline = function (filename) {
  * Used to process script assets into compiled assets
  */
 var jsPipeline = function (filename) {
-  var isProjectGlob = function (vinyl) {
-    var isVinylFileInProjectGlobs = false;
-    
-    isVinylFileInProjectGlobs = project.js.every(function (glob) {
-      if (!!glob.includes(vinyl.relative.replace(/^..\//,""))) {
-        return true;
-      }
-    });
-    
-    return isVinylFileInProjectGlobs;
-  };
+  var isPluginFile = function () {
+    if (filename.contains('plugin')) {
+      return true;
+    }
+  }
 
   return lazypipe()
       .pipe(function () {
         return gulpif(enabled.maps, sourcemaps.init());
       })
+      // .pipe(babel, {
+      //   presets: [['env', {
+      //     "targets": {
+      //       "chrome": "58",
+      //       "ie": "10"
+      //     }
+      //   }]]
+      // })
       .pipe(function () {
-        return gulpif(isProjectGlob, rjs({
-          baseUrl: path.source + "/scripts",
-          name: filename.toString().split('.')[0],
-          out: filename.toString(),
-          optimize: "none",
-          // generateSourceMaps: true,
-          // preserveLicenseComments: false,
-          // useSourceUrl: true,
-        }))
-      })
-      .pipe(function () {
-        return gulpif(isProjectGlob, babel({
+        return gulpif(!isPluginFile, babel({
           presets: [['env', {
             "targets": {
               "chrome": "58",
@@ -185,14 +156,15 @@ var jsPipeline = function (filename) {
       })
       .pipe(concat, filename)
       .pipe(function () {
-        return gulpif(config.minify && isProjectGlob, uglify());
+        return gulpif(config.minify, uglify({
+          mangle: false,
+          compress: false
+        }));
       })
-      // .pipe(function () {	
-      //   return gulpif(config.minify && isProjectGlob, terser({
-      //     mangle: false,
-      //     compress: false
-      //   }));	
-      // })
+      // .pipe(terser)
+      .pipe(function () {
+        return gulpif(!isPluginFile, terser());
+      })
       .pipe(function () {
         return gulpif(enabled.rev, rev());
       })
@@ -253,6 +225,7 @@ gulp.task('styles', function () {
 gulp.task('scripts', function () {
   var merged = merge();
   manifest.forEachDependency('js', function (dep) {
+    //console.log(dep.name);
     merged.add(
         gulp.src(dep.globs, {base: 'scripts'})
         // Sort plugins alphabetically
@@ -260,10 +233,10 @@ gulp.task('scripts', function () {
               // Prioritize jQuery
               //console.log(a.history[0]);
               //console.log(b.history[0]);
-              if (a.history[0].includes('jquery')) {
+              if (a.history[0].includes('jquery.min')) {
                 return -1;
               }
-              if (b.history[0].includes('jquery')) {
+              if (b.history[0].includes('jquery.min')) {
                 return 1;
               }
               return a.history[0].localeCompare(b.history[0]);
