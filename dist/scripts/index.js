@@ -1,110 +1,51 @@
-"use strict";
-
-var _createClass = function() {
-  function defineProperties(target, props) {
-    for (var i = 0; i < props.length; i++) {
-      var descriptor = props[i];
-      descriptor.enumerable = descriptor.enumerable || false;
-      descriptor.configurable = true;
-      if ("value" in descriptor) descriptor.writable = true;
-      Object.defineProperty(target, descriptor.key, descriptor);
-    }
-  }
-  return function(Constructor, protoProps, staticProps) {
-    if (protoProps) defineProperties(Constructor.prototype, protoProps);
-    if (staticProps) defineProperties(Constructor, staticProps);
-    return Constructor;
-  };
-}();
-
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
-
 (function() {
   "use strict";
-  var Queue = function() {
-    function Queue() {
-      _classCallCheck(this, Queue);
-      this.items = [];
+  var Queue = function Queue() {
+    this.items = [];
+  };
+  Queue.prototype.enqueue = function enqueue(element) {
+    return this.items.push(element);
+  };
+  Queue.prototype.dequeue = function dequeue() {
+    if (this.items.length > 0) {
+      return this.items.shift();
     }
-    _createClass(Queue, [ {
-      key: "enqueue",
-      value: function enqueue(element) {
-        return this.items.push(element);
-      }
-    }, {
-      key: "dequeue",
-      value: function dequeue() {
-        if (this.items.length > 0) {
-          return this.items.shift();
-        }
-      }
-    }, {
-      key: "peek",
-      value: function peek() {
-        return this.items[this.items.length - 1];
-      }
-    }, {
-      key: "isEmpty",
-      value: function isEmpty() {
-        return this.items.length == 0;
-      }
-    }, {
-      key: "size",
-      value: function size() {
-        return this.items.length;
-      }
-    }, {
-      key: "clear",
-      value: function clear() {
-        this.items = [];
-      }
-    } ]);
-    return Queue;
-  }();
-  var Stack = function() {
-    function Stack() {
-      _classCallCheck(this, Stack);
-      this.items = [];
+  };
+  Queue.prototype.peek = function peek() {
+    return this.items[this.items.length - 1];
+  };
+  Queue.prototype.isEmpty = function isEmpty() {
+    return this.items.length == 0;
+  };
+  Queue.prototype.size = function size() {
+    return this.items.length;
+  };
+  Queue.prototype.clear = function clear() {
+    this.items = [];
+  };
+  var Stack = function Stack() {
+    this.items = [];
+  };
+  Stack.prototype.add = function add(element) {
+    return this.items.push(element);
+  };
+  Stack.prototype.remove = function remove() {
+    if (this.items.length > 0) {
+      return this.items.pop();
     }
-    _createClass(Stack, [ {
-      key: "add",
-      value: function add(element) {
-        return this.items.push(element);
-      }
-    }, {
-      key: "remove",
-      value: function remove() {
-        if (this.items.length > 0) {
-          return this.items.pop();
-        }
-      }
-    }, {
-      key: "peek",
-      value: function peek() {
-        return this.items[this.items.length - 1];
-      }
-    }, {
-      key: "isEmpty",
-      value: function isEmpty() {
-        return this.items.length == 0;
-      }
-    }, {
-      key: "size",
-      value: function size() {
-        return this.items.length;
-      }
-    }, {
-      key: "clear",
-      value: function clear() {
-        this.items = [];
-      }
-    } ]);
-    return Stack;
-  }();
+  };
+  Stack.prototype.peek = function peek() {
+    return this.items[this.items.length - 1];
+  };
+  Stack.prototype.isEmpty = function isEmpty() {
+    return this.items.length == 0;
+  };
+  Stack.prototype.size = function size() {
+    return this.items.length;
+  };
+  Stack.prototype.clear = function clear() {
+    this.items = [];
+  };
   var queue = new Queue();
   queue.enqueue(1);
   queue.enqueue(2);

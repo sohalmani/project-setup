@@ -38,9 +38,11 @@ var terser = require('gulp-terser');
 var presuf = require('presuf');
 var betterRollup = require('gulp-better-rollup');
 var rollUpNodeResolve = require('rollup-plugin-node-resolve');
+var rollUpUrlResolve = require('rollup-plugin-url-resolve');
 var rollUpCommonjs = require('rollup-plugin-commonjs');
 var rollUpAmd = require('rollup-plugin-amd');
 var lookup = require('module-lookup-amd');
+var rollUpBuble = require('rollup-plugin-buble');
 
 /**
  * Notice for user
@@ -166,6 +168,11 @@ var jsPipeline = function (filename) {
                   extensions: ['.js'],
                   preferBuiltins: false,
                 }),
+                rollUpBuble({
+                  transforms: { forOf: false, asyncAwait: false },
+                  objectAssign: 'Object.assign',
+                }),
+                rollUpUrlResolve(),
                 rollUpAmd({
                   exclude: ['node_modules/**'],
                   rewire: function(moduleId, parentPath) {
@@ -175,7 +182,7 @@ var jsPipeline = function (filename) {
                     });
                   }
                 }),
-                rollUpCommonjs()
+                rollUpCommonjs(),
               ],
             },
             {
@@ -184,16 +191,16 @@ var jsPipeline = function (filename) {
           )
         );
       })
-      .pipe(function () {
-        return gulpif(presuf.prefix(project.js, '../'), babel({
-          presets: [['env', {
-            "targets": {
-              "chrome": "58",
-              "ie": "10"
-            }
-          }]]
-        }))
-      })
+      // .pipe(function () {
+      //   return gulpif(presuf.prefix(project.js, '../'), babel({
+      //     presets: [['env', {
+      //       "targets": {
+      //         "chrome": "58",
+      //         "ie": "10"
+      //       }
+      //     }]]
+      //   }))
+      // })
       .pipe(function () {
         return gulpif(presuf.prefix(project.js, '../'), uglify({
           output: { beautify: !config.minify, indent_level: 2 },

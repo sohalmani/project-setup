@@ -1,11 +1,11 @@
-"use strict";
-
 (function() {
   "use strict";
   var Slider = function() {
     var $testimionial = $(".testimonial");
-    var initSlider = function initSlider() {
-      if ($testimionial.length === 0) return;
+    var initSlider = function() {
+      if ($testimionial.length === 0) {
+        return;
+      }
       $testimionial.each(function() {
         var slides = $(this).find(".testimonial-card").length;
         var wrapper = $(this).find(".testimonial__items");
@@ -20,7 +20,7 @@
         }
       });
     };
-    var addEventhandler = function addEventhandler(handler) {
+    var addEventhandler = function(handler) {
       [ "load", "resize" ].forEach(function(ev) {
         return window.addEventListener(ev, handler);
       });
@@ -35,8 +35,10 @@
     var $overlayElement = $(".video-overlay");
     var videoId;
     var ampersandPosition;
-    var extractVideoUrl = function extractVideoUrl(url) {
-      if (url === "") return;
+    var extractVideoUrl = function(url) {
+      if (url === "") {
+        return;
+      }
       if (url.indexOf("watch") > 0) {
         videoId = url.split("v=")[1];
         ampersandPosition = videoId.indexOf("&");
@@ -54,12 +56,14 @@
         return "https://youtube.com/embed/" + videoId;
       }
     };
-    var overleyOpen = function overleyOpen(videoUrl) {
-      if ($overlayElement.length === 0) return;
+    var overleyOpen = function(videoUrl) {
+      if ($overlayElement.length === 0) {
+        return;
+      }
       $overlayElement.find("iframe").attr("src", videoUrl);
       $overlayElement.addClass("active");
     };
-    var closeOverlay = function closeOverlay(e) {
+    var closeOverlay = function(e) {
       var clickedElement = e.target;
       if ($(clickedElement).hasClass("video-overlay") || $(clickedElement).hasClass("close") || $(clickedElement).hasClass("video-wrap") || $(clickedElement).hasClass("container")) {
         $(".video-overlay").removeClass("active");
@@ -69,7 +73,7 @@
         $(".video-overlay iframe").attr("src", "");
       }
     };
-    var setVideoBoxDimesnions = function setVideoBoxDimesnions() {
+    var setVideoBoxDimesnions = function() {
       if ($overlayElement.find(".video-wrap").length) {
         var videoBoxWidth = $overlayElement.find(".container").width();
         var videoBoxHeight = videoBoxWidth / 16 * 9;
@@ -91,7 +95,7 @@
         }
       }
     };
-    var init = function init() {
+    var init = function() {
       $playButton.each(function() {
         $(this).on("click", function(e) {
           e.preventDefault();
@@ -109,11 +113,11 @@
   var ContentInAccordion = function() {
     var $contentInAccordion = $(".content-in-accordion");
     var $panelGroup = $contentInAccordion.find(".panel-group");
-    var firstPanelOpen = function firstPanelOpen() {
+    var firstPanelOpen = function() {
       $(".content-in-accordion .panel:first .panel__body").show();
       $(".content-in-accordion .panel:first .panel__heading").addClass("open");
     };
-    var init = function init() {
+    var init = function() {
       if ($contentInAccordion.length) {
         firstPanelOpen();
         $panelGroup.on("click", function(e) {
@@ -132,21 +136,21 @@
     var $tabsWithConetnt = $(".tabs-with-content");
     var $tabItem = $tabsWithConetnt.find(".tabs__nav li");
     var $tabContent = $tabsWithConetnt.find(".tab-content");
-    var addTabId = function addTabId(elements) {
-      var attribute = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "data-tab";
+    var addTabId = function(elements, attribute) {
+      if (attribute === void 0) attribute = "data-tab";
       elements.each(function(i, element) {
         element.setAttribute(attribute, "tab" + (i + 1));
       });
     };
-    var addActiveOnTabContent = function addActiveOnTabContent(tabId) {
+    var addActiveOnTabContent = function(tabId) {
       $tabContent.removeClass("active");
       $('.tab-content[tab-id="' + tabId + '"]').addClass("active");
     };
-    var firstTabShow = function firstTabShow() {
+    var firstTabShow = function() {
       $tabsWithConetnt.find(".tabs__nav li:first").addClass("active");
       $tabsWithConetnt.find(".tab-content:first").addClass("active");
     };
-    var truncateLines = function truncateLines() {
+    var truncateLines = function() {
       var textWrapper = document.querySelector(".tabs-with-content .content-wrap");
       var options = {
         ellipsis: " … ",
@@ -155,8 +159,10 @@
       };
       var dot = $(textWrapper).dotdotdot(options);
     };
-    var init = function init() {
-      if (!$tabsWithConetnt.length) return;
+    var init = function() {
+      if (!$tabsWithConetnt.length) {
+        return;
+      }
       addTabId($tabItem);
       addTabId($tabContent, "tab-id");
       firstTabShow();
@@ -177,13 +183,15 @@
   var CardsWithIcon = function() {
     var $cardsBlade = $(".cards-with-icon");
     var $cardTitle = $(".cards-with-icon .card .card__title");
-    var triggerMatchHeight = function triggerMatchHeight(element) {
+    var triggerMatchHeight = function(element) {
       $cardsBlade.each(function() {
         $(this).find(element).matchHeight();
       });
     };
-    var init = function init() {
-      if (!$cardsBlade.length) return;
+    var init = function() {
+      if (!$cardsBlade.length) {
+        return;
+      }
       $(window).on("load, resize", triggerMatchHeight($cardTitle));
     };
     return {
