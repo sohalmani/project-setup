@@ -163,16 +163,12 @@ var jsPipeline = function (filename) {
           betterRollup(
             {
               plugins: [
+                rollUpUrlResolve(),
                 rollUpNodeResolve({
                   browser: true,
                   extensions: ['.js'],
                   preferBuiltins: false,
                 }),
-                rollUpBuble({
-                  transforms: { forOf: false, asyncAwait: false },
-                  objectAssign: 'Object.assign',
-                }),
-                rollUpUrlResolve(),
                 rollUpAmd({
                   exclude: ['node_modules/**'],
                   rewire: function(moduleId, parentPath) {
@@ -183,6 +179,10 @@ var jsPipeline = function (filename) {
                   }
                 }),
                 rollUpCommonjs(),
+                rollUpBuble({
+                  transforms: { forOf: false, asyncAwait: false },
+                  objectAssign: 'Object.assign',
+                })
               ],
             },
             {
