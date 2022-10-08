@@ -192,6 +192,7 @@
       if (!$cardsBlade.length) {
         return;
       }
+      console.log("this is at line");
       $(window).on("load, resize", triggerMatchHeight($cardTitle));
     };
     return {

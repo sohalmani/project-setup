@@ -62,7 +62,7 @@
     "postcss-object-fit-images": "^1.1.2",
     "presuf": "^1.0.0",
     "rollup": "^1.32.1",
-    "rollup-plugin-amd": "^4.0.0",
+    "rollup-plugin-amd": "github:sohalmani/rollup-plugin-amd#build",
     "rollup-plugin-buble": "^0.19.8",
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-node-resolve": "^5.2.0",
