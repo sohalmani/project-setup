@@ -4,9 +4,17 @@
   "author": "Mani Sohal <dev.manisohal@gmail.com>",
   "homepage": "",
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/sohalmani/project-setup.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sohalmani/project-setup/issues"
+  },
   "licenses": [
     {
-      "type": "Copyright (C)"
+      "type": "MIT",
+      "url": "http://opensource.org/licenses/MIT"
     }
   ],
   "scripts": {
@@ -15,16 +23,7 @@
   "engines": {
     "node": ">= 4.5"
   },
-  "dependencies": {
-    "gulp-add-src": "^1.0.0",
-    "gulp-append-prepend": "^1.0.4",
-    "gulp-color": "0.0.2",
-    "gulp-print": "^2.0.1",
-    "gulp-terser": "^1.4.1",
-    "sort-stream": "^1.0.1"
-  },
   "devDependencies": {
-    "asset-builder": "^1.1.0",
     "asset-builder-nobower": "^1.1.2",
     "babel-core": "^6.26.3",
     "babel-preset-env": "^1.7.0",
@@ -33,7 +32,6 @@
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^4.1.0",
     "gulp-babel": "^7.0.1",
-    "gulp-changed": "^3.1.1",
     "gulp-concat": "^2.6.1",
     "gulp-cssnano": "^2.1.2",
     "gulp-flatten": "^0.3.1",
@@ -47,7 +45,6 @@
     "gulp-rev": "^8.1.0",
     "gulp-sass": "^3.1.0",
     "gulp-sourcemaps": "^2.6.1",
-    "gulp-sri": "^0.3.1",
     "gulp-uglify": "^3.0.2",
     "imagemin-pngcrush": "^5.1.0",
     "jshint": "^2.12.0",
@@ -57,6 +54,7 @@
     "minimist": "^1.2.5",
     "postcss-object-fit-images": "^1.1.2",
     "run-sequence": "^2.2.0",
+    "sort-stream": "^1.0.1",
     "traverse": "^0.6.6",
     "wiredep": "^4.0.0"
   }

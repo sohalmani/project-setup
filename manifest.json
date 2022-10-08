@@ -13,12 +13,7 @@
       "files": ["scripts/plugins/*.js"]
     }
   },
-  "paths": {
-    "source": "assets/",
-    "dist": "dist/"
-  },
   "config": {
-    "devUrl": "project-setup.test",
-    "minify": false
+    "devUrl": "project-setup.test"
   }
 }
