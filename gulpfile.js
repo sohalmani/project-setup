@@ -1,3 +1,6 @@
+// ## Manifest JSON file location
+var manifestLocation = './manifest.json';
+
 // ## Globals
 var argv             = require('minimist')(process.argv.slice(2));
 var autoprefixer     = require('gulp-autoprefixer');
@@ -22,7 +25,7 @@ var sourcemaps       = require('gulp-sourcemaps');
 var uglify           = require('gulp-uglify');
 
 // See https://github.com/austinpray/asset-builder
-var manifest = require('asset-builder-nobower')('./manifest.json');
+var manifest = require('asset-builder-nobower')(manifestLocation);
 
 // `path` - Paths to base asset directories. With trailing slashes.
 // - `path.source` - Path to the source files. Default: `assets/`
@@ -136,18 +139,22 @@ var jsTasks = function(filename) {
       return gulpif(enabled.maps, sourcemaps.init());
     })
     .pipe(concat, filename)
-    .pipe(babel, {
-      presets: [['env', {
-        "targets": {
-          "chrome": "58",
-          "ie": "10"
-        }
-      }]]
+    .pipe(function () {
+      return gulpif(!filename.includes('plugin'), babel({
+        presets: [['env', {
+          "targets": {
+            "chrome": "58",
+            "ie": "10"
+          }
+        }]]
+      }))
     })
-    .pipe(uglify, {
-      compress: {
-        'drop_debugger': enabled.stripJSDebug
-      }
+    .pipe(function () {
+      return gulpif(!filename.includes('plugin'), uglify({
+        compress: {
+          'drop_debugger': enabled.stripJSDebug
+        }
+      }))
     })
     .pipe(function() {
       return gulpif(enabled.rev, rev());

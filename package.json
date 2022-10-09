@@ -23,6 +23,14 @@
   "engines": {
     "node": ">= 4.5"
   },
+  "dependencies": {
+    "gulp-add-src": "^1.0.0",
+    "gulp-append-prepend": "^1.0.4",
+    "gulp-color": "0.0.2",
+    "gulp-print": "^2.0.1",
+    "gulp-sri": "^0.3.1",
+    "gulp-terser": "^1.4.1"
+  },
   "devDependencies": {
     "asset-builder-nobower": "^1.1.2",
     "babel-core": "^6.26.3",
@@ -32,6 +40,7 @@
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^4.1.0",
     "gulp-babel": "^7.0.1",
+    "gulp-changed": "^3.1.1",
     "gulp-concat": "^2.6.1",
     "gulp-cssnano": "^2.1.2",
     "gulp-flatten": "^0.3.1",
