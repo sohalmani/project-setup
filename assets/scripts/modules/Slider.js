@@ -3,7 +3,7 @@ define(function() {
     const $testimionial = $('.testimonial');
 
     const initSlider = function() {
-      if($testimionial.length === 0) return;
+      if(!$testimionial.length) return;
      
       $testimionial.each(function() {
         const slides = $(this).find('.testimonial-card').length;

@@ -5,8 +5,12 @@ define(function () {
     const $cardTitle = $('.cards-with-icon .card .card__title');
 
     const triggerMatchHeight = function (element) {
+      const matchHeightOptions = {
+          byRow: false,
+      }
+      
       $cardsBlade.each(function () {
-        $(this).find(element).matchHeight();
+        $(this).find(element).matchHeight(matchHeightOptions);
       });
     }
     

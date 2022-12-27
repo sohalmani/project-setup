@@ -3,7 +3,7 @@ define('modules/Slider',[],function() {
     const $testimionial = $('.testimonial');
 
     const initSlider = function() {
-      if($testimionial.length === 0) return;
+      if(!$testimionial.length) return;
      
       $testimionial.each(function() {
         const slides = $(this).find('.testimonial-card').length;
@@ -240,8 +240,12 @@ define('modules/CardsWithIcon',[],function () {
     const $cardTitle = $('.cards-with-icon .card .card__title');
 
     const triggerMatchHeight = function (element) {
+      const matchHeightOptions = {
+          byRow: false,
+      }
+      
       $cardsBlade.each(function () {
-        $(this).find(element).matchHeight();
+        $(this).find(element).matchHeight(matchHeightOptions);
       });
     }
     
