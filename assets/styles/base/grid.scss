@@ -7,7 +7,13 @@
   max-width: 1330px;
   position: relative;
   z-index: 1;
+
+  &--large {
+    max-width: 1960px;
+  }
 }
+
+
 
 .row {
   display: flex;
